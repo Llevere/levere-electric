@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
+/* Tailwind v4 theme tokens */
+@theme {
+    /* Core brand */
+    --color-brand-navy: #04243C;
+    --color-brand-gold: #E2C051;
+
+    /* Supporting navies (great for panels/gradients) */
+    --color-brand-navy-2: #08314E;
+    --color-brand-navy-3: #0F3E60;
+
+    /* Gold variations (hover/active states) */
+    --color-brand-gold-2: #C9A83E;
+    /* darker */
+    --color-brand-gold-3: #F0D88A;
+    /* lighter */
+
+    /* Neutrals that pair well */
+    --color-brand-cream: #F7F4EC;
+    --color-brand-warm-300: #D7D0BF;
+    --color-brand-warm-500: #9A927E;
+
+    /* Accents */
+    --color-brand-teal: #2CB8B8;
+    --color-brand-sky: #4FB3C8;
+
+    /* Status colors (readable on navy) */
+    --color-brand-success: #4FB36B;
+    --color-brand-danger: #E35D59;
+}
+
+/* Optional: set defaults */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-brand-navy);
+    color: var(--color-brand-cream);
 }

@@ -1,0 +1,68 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import NavbarLogo from "./NavbarLogo";
+import NavLinks from "./NavLinks";
+import MobileMenu from "./MobileMenu";
+
+export default function Navbar() {
+    const [mobileOpen, setMobileOpen] = useState(false);
+
+    return (
+        <header className="w-full bg-brand-navy">
+            <div className="mx-auto flex h-20 w-full max-w-screen-2xl items-center px-6">
+
+                <div className="shrink-0">
+                    <NavbarLogo />
+                </div>
+
+                <div className="flex flex-1 justify-center px-6">
+                    <NavLinks />
+                </div>
+
+                <div className="flex shrink-0 items-center gap-3">
+                    <Link
+                        href="/book"
+                        className="hidden md:inline-flex rounded-md bg-brand-gold px-5 py-2 text-sm font-semibold
+                       text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition-colors"
+                    >
+                        Book Now
+                    </Link>
+
+                    <button
+                        type="button"
+                        aria-label="Toggle menu"
+                        aria-expanded={mobileOpen}
+                        onClick={() => setMobileOpen(v => !v)}
+                        className="md:hidden inline-flex items-center justify-center rounded-md p-2
+                       text-brand-cream hover:bg-brand-cream/10 transition"
+                    >
+                        <div className="relative h-5 w-6">
+                            <span
+                                className={[
+                                    "absolute left-0 top-0 h-0.5 w-6 bg-current transition-transform duration-200",
+                                    mobileOpen ? "translate-y-2.25 rotate-45" : "",
+                                ].join(" ")}
+                            />
+                            <span
+                                className={[
+                                    "absolute left-0 top-2.25 h-0.5 w-6 bg-current transition-opacity duration-200",
+                                    mobileOpen ? "opacity-0" : "opacity-100",
+                                ].join(" ")}
+                            />
+                            <span
+                                className={[
+                                    "absolute left-0 top-4.5 h-0.5 w-6 bg-current transition-transform duration-200",
+                                    mobileOpen ? "-translate-y-2.25 -rotate-45" : "",
+                                ].join(" ")}
+                            />
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+        </header>
+    );
+}
