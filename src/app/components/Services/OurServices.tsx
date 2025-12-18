@@ -29,9 +29,9 @@ const SERVICES: ServiceCardType[] = [
 export default function OurServicesSection() {
     return (
         <section className="relative bg-brand-navy">
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-black/20 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b to-transparent" />
 
-            <div className="relative mx-auto max-w-7xl px-6 py-16">
+            <div className="relative mx-auto max-w-7xl px-6 py-16 ">
                 <div className="text-center">
                     <h2 className="text-4xl font-semibold text-brand-gold">Our Services</h2>
                     <div className="mx-auto mt-3 h-0.5 w-14 rounded-full bg-brand-gold/70" />
