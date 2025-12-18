@@ -15,38 +15,68 @@ export default function MobileMenu({ open, onClose }: Props) {
     return (
         <div
             className={[
-                "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-out",
-                open ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
+                "md:hidden",
+                "fixed left-0 right-0 z-40",
+                "top-20",
+                open ? "pointer-events-auto" : "pointer-events-none",
             ].join(" ")}
+            aria-hidden={!open}
         >
-            <div className="border-t border-brand-cream/10 bg-brand-navy px-6 py-4">
-                <div className="flex flex-col gap-3">
-                    {NAV_ITEMS.map((item) => {
-                        const active = isActive(pathname, item);
+            <div
+                onClick={onClose}
+                className={[
+                    "fixed inset-0 top-20",
+                    "bg-black/60 backdrop-blur-[2px]",
+                    "transition-opacity duration-200",
+                    open ? "opacity-100" : "opacity-0",
+                ].join(" ")}
+            />
 
-                        return (
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className={[
+                    "relative w-full",
+                    "border-t border-brand-cream/10 bg-brand-navy/95 backdrop-blur",
+                    "shadow-[0_20px_40px_rgba(0,0,0,0.35)]",
+                    "origin-top",
+                    "transition-[transform,opacity] duration-200 ease-out",
+                    open ? "scale-y-100 opacity-100" : "scale-y-95 opacity-0",
+                ].join(" ")}
+            >
+                <div className="mx-auto w-full max-w-screen-2xl px-6 py-5">
+                    <nav className="flex flex-col gap-2">
+                        {NAV_ITEMS.map((item) => {
+                            const active = isActive(pathname, item);
+
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={onClose}
+                                    className={[
+                                        "rounded-lg px-3 py-3 text-sm font-medium",
+                                        "transition-colors",
+                                        active
+                                            ? "bg-brand-cream/10 text-brand-gold"
+                                            : "text-brand-cream/90 hover:bg-brand-cream/10 hover:text-brand-gold",
+                                    ].join(" ")}
+                                >
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+
+                        <div className="pt-2">
                             <Link
-                                key={item.href}
-                                href={item.href}
-                                onClick={onClose}  // ✅ close only when user navigates
-                                className={[
-                                    "py-2 text-sm font-medium",
-                                    active ? "text-brand-gold" : "text-brand-cream/90 hover:text-brand-gold",
-                                ].join(" ")}
+                                href="/book"
+                                onClick={onClose}
+                                className="inline-flex w-full items-center justify-center rounded-lg bg-brand-gold px-5 py-3
+                  text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition-colors"
                             >
-                                {item.label}
+                                Book Now
                             </Link>
-                        );
-                    })}
-
-                    <Link
-                        href="/book"
-                        onClick={onClose}
-                        className="mt-2 inline-flex w-fit items-center justify-center rounded-md bg-brand-gold px-5 py-2
-                       text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2"
-                    >
-                        Book Now
-                    </Link>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
