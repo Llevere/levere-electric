@@ -38,12 +38,13 @@ export default function NavLinks() {
         return () => window.removeEventListener("resize", onResize);
     }, [activeIndex]);
 
+
     return (
         <nav className="relative hidden md:flex">
             <div
                 ref={navRef}
                 onMouseLeave={() => moveIndicator(activeIndex)}
-                className="flex items-center gap-6 lg:gap-10 whitespace-nowrap"
+                className="flex items-center gap-6 lg:gap-10 whitespace-nowrap h-full"
             >
                 {NAV_ITEMS.map((item, index) => {
                     const active = isActive(pathname, item);
@@ -53,10 +54,7 @@ export default function NavLinks() {
                             key={item.href}
                             href={item.href}
                             onMouseEnter={() => moveIndicator(index)}
-                            className={[
-                                "pb-3 text-[13px] lg:text-sm font-medium transition-colors",
-                                active ? "text-brand-gold" : "text-brand-cream hover:text-brand-gold",
-                            ].join(" ")}
+                            className={`pb-3 text-[13px] lg:text-sm font-medium transition-colors ${active ? "text-brand-gold" : "text-brand-cream hover:text-brand-gold"} `}
                         >
                             {item.label === "EV Charger Installation" ? (
                                 <>
