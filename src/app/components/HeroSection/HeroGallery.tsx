@@ -91,11 +91,14 @@ export default function HeroGallery() {
                 type="button"
                 aria-label="Previous image"
                 onClick={prev}
-                className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-brand-navy/65 px-3 py-2 text-brand-cream
-                    border border-brand-cream/15
-                    opacity-0 group-hover:opacity-100 transition-opacity duration-200
-                    hover:bg-brand-navy/85">
-
+                className={[
+                    "cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 rounded-full",
+                    "bg-brand-navy/65 px-3 py-2 text-brand-cream border border-brand-cream/15",
+                    "opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200",
+                    "hover:bg-brand-navy/85",
+                ].join(" ")}
+            >
+                ‹
             </button>
 
             <button
@@ -104,9 +107,8 @@ export default function HeroGallery() {
                 onClick={next}
                 className={[
                     "cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 rounded-full",
-                    "bg-brand-navy/65 px-3 py-2 text-brand-cream",
-                    "border border-brand-cream/15",
-                    "opacity-0 group-hover:opacity-100 transition-opacity duration-200",
+                    "bg-brand-navy/65 px-3 py-2 text-brand-cream border border-brand-cream/15",
+                    "opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200",
                     "hover:bg-brand-navy/85",
                 ].join(" ")}
             >

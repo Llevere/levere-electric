@@ -33,7 +33,7 @@ function Hero() {
                         <HeroTrustList />
                     </div>
 
-                    <div className="hidden lg:block">
+                    <div className="mt-5 lg:mt-0">
                         <HeroGallery />
                     </div>
                 </div>
