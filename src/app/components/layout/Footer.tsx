@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-
-export default function Footer() {
+export default async function Footer() {
     return (
         <footer className="w-full bg-[#061427]">
             <div className="mx-auto w-full max-w-screen-2xl px-6">
@@ -12,7 +9,7 @@ export default function Footer() {
 
                         <div className="relative w-32 shrink-0">
                             <Image
-                                src="/FullLogo-Dark.jpg"
+                                src='/FullLogo-Dark.jpg'
                                 alt="Levere Electric"
                                 fill
                                 sizes="12"

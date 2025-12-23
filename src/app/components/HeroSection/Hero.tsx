@@ -1,7 +1,8 @@
 import HeroGallery from "./HeroGallery";
 import HeroTrustList from "./HeroTrustList";
 
-function Hero() {
+
+function Hero({ images }: { images: Map<string, string> }) {
     return (
         <section className="relative bg-brand-navy">
             <div className="pointer-events-none absolute inset-0" />
@@ -34,7 +35,7 @@ function Hero() {
                     </div>
 
                     <div className="mt-5 lg:mt-0">
-                        <HeroGallery />
+                        <HeroGallery images={images} />
                     </div>
                 </div>
             </div>
