@@ -1,0 +1,122 @@
+import Image from "next/image";
+import Link from "next/link";
+import { FEATURES } from "./data";
+
+export default function HeroSection({ heroUrl }: { heroUrl: string }) {
+  return (
+    <section className="relative w-full overflow-hidden min-h-[calc(100dvh-5rem)]">
+      <Image
+        src={heroUrl}
+        alt="EV charger installation"
+        fill
+        priority
+        className="object-cover object-center"
+      />
+
+      <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-brand-navy/95 via-brand-navy/55 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/55 via-black/45 to-brand-navy/95" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(226,192,81,0.14),transparent_60%)]" />
+      <div className="absolute inset-0 mask-[radial-gradient(ellipse_at_center,black,transparent_72%)] bg-black/35" />
+
+      <div className="relative mx-auto flex min-h-[calc(100dvh-5rem)] w-full max-w-6xl flex-col px-4 lg:pb-5">
+        <div className="flex-1" />
+
+        <div className="pb-2">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-white/85 backdrop-blur sm:text-xs">
+              <span className="h-2 w-2 rounded-full bg-brand-gold shadow-[0_0_18px_rgba(226,192,81,0.55)]" />
+              Level 2 EV Charger Installation • London, ON
+            </div>
+
+            <h1 className="mt-3 font-semibold leading-[1.06] tracking-tight text-[clamp(2rem,8vw,3.25rem)] md:text-6xl">
+              Home EV Charger Installation{" "}
+              <span className="text-brand-gold">Done Right</span>
+            </h1>
+
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+              Power your EV properly with a professionally installed Level 2
+              charger. Serving London, St. Thomas, Dorchester, Komoka, Delaware
+              & surrounding areas.
+            </p>
+
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/contact"
+                  className="
+                group inline-flex items-center justify-center
+                rounded-xl bg-brand-gold px-5 py-3 text-sm font-semibold text-brand-navy
+                shadow-[0_10px_30px_rgba(226,192,81,0.18)]
+                transition hover:brightness-110 active:brightness-95
+                w-fit min-w-48 max-w-[18rem]
+            "
+                >
+                  Book Installation
+                  <span className="ml-2 inline-block transition group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="
+                inline-flex items-center justify-center
+                rounded-xl border border-white/15 bg-white/5 px-5 py-3
+                text-sm font-semibold text-white backdrop-blur
+                transition hover:bg-white/10
+                w-fit min-w-48 max-w-[18rem]
+            "
+                >
+                  Request Quote
+                </Link>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-white/70 sm:pt-0 sm:text-xs">
+                <span className="rounded-lg border border-white/10 bg-white/5 px-2 py-1">
+                  ESA Licensed
+                </span>
+                <span className="rounded-lg border border-white/10 bg-white/5 px-2 py-1">
+                  Fully Insured
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 hidden gap-4 border-t border-white/10 pt-6 md:grid md:grid-cols-4">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur"
+              >
+                <div className="text-sm font-semibold">{f.title}</div>
+                <p className="mt-2 text-sm leading-relaxed text-white/75">
+                  {f.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 border-t border-white/10 pt-4 md:hidden">
+            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {FEATURES.map((f) => (
+                <span
+                  key={f.title}
+                  className="shrink-0 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] text-white/75 backdrop-blur"
+                >
+                  {f.title}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-3 flex justify-center sm:mb-0 lg:mt-3">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70 backdrop-blur">
+            <span className="animate-bounce">↓</span>
+            Scroll for details
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
