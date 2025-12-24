@@ -23,11 +23,6 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
 
         <div className="pb-2">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-white/85 backdrop-blur sm:text-xs">
-              <span className="h-2 w-2 rounded-full bg-brand-gold shadow-[0_0_18px_rgba(226,192,81,0.55)]" />
-              Level 2 EV Charger Installation • London, ON
-            </div>
-
             <h1 className="mt-3 font-semibold leading-[1.06] tracking-tight text-[clamp(2rem,8vw,3.25rem)] md:text-6xl">
               Home EV Charger Installation{" "}
               <span className="text-brand-gold">Done Right</span>
@@ -39,17 +34,18 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
               & surrounding areas.
             </p>
 
-            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="mt-5 flex flex-col gap-3">
+              <div className="flex flex-row gap-3 max-w-md">
                 <Link
                   href="/contact"
                   className="
-                group inline-flex items-center justify-center
-                rounded-xl bg-brand-gold px-5 py-3 text-sm font-semibold text-brand-navy
-                shadow-[0_10px_30px_rgba(226,192,81,0.18)]
-                transition hover:brightness-110 active:brightness-95
-                w-fit min-w-48 max-w-[18rem]
-            "
+    group inline-flex items-center justify-center
+    rounded-xl bg-brand-gold px-4 py-2.5
+    text-sm font-semibold text-brand-navy
+    shadow-[0_8px_24px_rgba(226,192,81,0.18)]
+    transition hover:brightness-110 active:brightness-95
+    w-40 
+  "
                 >
                   Book Installation
                   <span className="ml-2 inline-block transition group-hover:translate-x-0.5">
@@ -60,12 +56,12 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
                 <Link
                   href="/contact"
                   className="
-                inline-flex items-center justify-center
-                rounded-xl border border-white/15 bg-white/5 px-5 py-3
-                text-sm font-semibold text-white backdrop-blur
-                transition hover:bg-white/10
-                w-fit min-w-48 max-w-[18rem]
-            "
+    inline-flex items-center justify-center
+    rounded-xl border border-white/15 bg-white/5 px-4 py-2.5
+    text-sm font-semibold text-white backdrop-blur
+    transition hover:bg-white/10
+    w-40
+  "
                 >
                   Request Quote
                 </Link>
