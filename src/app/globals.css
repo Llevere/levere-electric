@@ -8,12 +8,15 @@ html, body {
 }
 
 @theme {
+    /* Nav background */
+    --color-brand-dark-navy: #061427;
+    /* Main theme pallete */
     --color-brand-navy: #04243C;
     --color-brand-gold: #E2C051;
 
     --color-brand-navy-2: #08314E;
     --color-brand-navy-3: #0F3E60;
-
+    
     --color-brand-gold-2: #C9A83E;
     --color-brand-gold-3: #F0D88A;
 

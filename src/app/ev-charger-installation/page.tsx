@@ -1,4 +1,3 @@
-import Footer from "@/components/layout/Footer";
 import { getHomeImageUrl } from "@/lib/homeImages";
 import HeroSection from "./HeroSection";
 import PackagesSection from "./package-tiers/PackagesSection";
@@ -14,7 +13,6 @@ export default async function EvChargerInstallationPage() {
       <HeroSection heroUrl={heroUrl} />
       <PackagesSection />
       <FAQSection />
-      <Footer />
     </>
   );
 }

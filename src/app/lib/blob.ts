@@ -25,5 +25,5 @@ async function listFolderRaw(prefix: string): Promise<BlobImage[]> {
 
 export const listFolderCached = (prefix: string) =>
   unstable_cache(() => listFolderRaw(prefix), ["blob-folder", prefix], {
-    revalidate: 60 * 60, // put back to 1h once confirmed
+    revalidate: 1, // put back to 1h once confirmed
   })();
