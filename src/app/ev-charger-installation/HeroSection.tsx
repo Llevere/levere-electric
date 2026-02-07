@@ -9,7 +9,7 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
         src={heroUrl}
         alt="EV charger installation"
         fill
-        quality={75}
+        quality={90}
         priority
         className="object-cover object-center"
       />

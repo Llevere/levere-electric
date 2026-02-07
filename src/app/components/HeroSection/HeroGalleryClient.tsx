@@ -96,7 +96,7 @@ export default function HeroGalleryClient({ heroImages }: Props) {
               src={src}
               alt={`Homepage photo ${i + 1}`}
               fill
-              quality={75}
+              quality={90}
               priority={i === 0}
               sizes="(min-width: 1280px) 50vw, (min-width: 768px) 50vw, 100vw"
               className={[
