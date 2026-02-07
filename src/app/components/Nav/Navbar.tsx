@@ -36,7 +36,7 @@ export default function Navbar() {
             <NavbarLogo />
           </div>
 
-          <div className="flex flex-1 justify-center px-6">
+          <div className="flex flex-1 justify-center px-6 h-full text-center">
             <NavLinks />
           </div>
 
@@ -55,22 +55,13 @@ export default function Navbar() {
             >
               <div className="relative h-5 w-6">
                 <span
-                  className={[
-                    "absolute left-0 top-0 h-0.5 w-6 bg-current transition-transform duration-200",
-                    mobileOpen ? "translate-y-2.25 rotate-45" : "",
-                  ].join(" ")}
+                  className={`absolute left-0 top-0 h-0.5 w-6 bg-current transition-transform duration-200 ${mobileOpen ? "translate-y-2.25 rotate-45" : ""}`}
                 />
                 <span
-                  className={[
-                    "absolute left-0 top-2.25 h-0.5 w-6 bg-current transition-opacity duration-200",
-                    mobileOpen ? "opacity-0" : "opacity-100",
-                  ].join(" ")}
+                  className={`absolute left-0 top-2.25 h-0.5 w-6 bg-current transition-opacity duration-200 ${mobileOpen ? "opacity-0" : "opacity-100"}`}
                 />
                 <span
-                  className={[
-                    "absolute left-0 top-4.5 h-0.5 w-6 bg-current transition-transform duration-200",
-                    mobileOpen ? "-translate-y-2.25 -rotate-45" : "",
-                  ].join(" ")}
+                  className={`absolute left-0 top-4.5 h-0.5 w-6 bg-current transition-transform duration-200 ${mobileOpen ? "-translate-y-2.25 -rotate-45" : ""}`}
                 />
               </div>
             </button>

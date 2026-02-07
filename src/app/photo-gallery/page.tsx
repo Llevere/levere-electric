@@ -16,10 +16,8 @@ function groupByFolder(images: BlobImage[]) {
       grouped[subfolder as GalleryFolders].push(img);
     }
   }
-
   return grouped;
 }
-
 export default async function PhotoGalleryPage() {
   const images = await listFolderCached("gallery/");
   const grouped = groupByFolder(images);

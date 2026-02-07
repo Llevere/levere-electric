@@ -9,6 +9,7 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
         src={heroUrl}
         alt="EV charger installation"
         fill
+        quality={75}
         priority
         className="object-cover object-center"
       />
@@ -39,13 +40,13 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
                 <Link
                   href="/contact"
                   className="
-    group inline-flex items-center justify-center
-    rounded-xl bg-brand-gold px-4 py-2.5
-    text-sm font-semibold text-brand-navy
-    shadow-[0_8px_24px_rgba(226,192,81,0.18)]
-    transition hover:brightness-110 active:brightness-95
-    w-40 
-  "
+                    group inline-flex items-center justify-center
+                    rounded-xl bg-brand-gold px-4 py-2.5
+                    text-sm font-semibold text-brand-navy
+                    shadow-[0_8px_24px_rgba(226,192,81,0.18)]
+                    transition hover:brightness-110 active:brightness-95
+                    w-40 
+                  "
                 >
                   Book Installation
                   <span className="ml-2 inline-block transition group-hover:translate-x-0.5">
@@ -56,12 +57,11 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
                 <Link
                   href="/contact"
                   className="
-    inline-flex items-center justify-center
-    rounded-xl border border-white/15 bg-white/5 px-4 py-2.5
-    text-sm font-semibold text-white backdrop-blur
-    transition hover:bg-white/10
-    w-40
-  "
+                    inline-flex items-center justify-center
+                    rounded-xl border border-white/15 bg-white/5 px-4 py-2.5
+                    text-sm font-semibold text-white backdrop-blur
+                    transition hover:bg-white/10
+                    w-40"
                 >
                   Request Quote
                 </Link>
@@ -106,12 +106,12 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
           </div>
         </div>
 
-        <div className="mb-3 flex justify-center sm:mb-0 lg:mt-3">
+        {/* <div className="mb-3 flex justify-center sm:mb-0 lg:mt-3">
           <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70 backdrop-blur">
             <span className="animate-bounce">↓</span>
             Scroll for details
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

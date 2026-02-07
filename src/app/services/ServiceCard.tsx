@@ -23,6 +23,7 @@ export default function ServiceCard({
           src={src}
           alt={item.title.replace("\n", " ")}
           fill
+          quality={75}
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="object-cover object-center "
         />
