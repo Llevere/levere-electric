@@ -41,7 +41,9 @@ export default function Navbar() {
           </div>
 
           <div className="flex shrink-0 items-center gap-3">
-            <BookNowButton href="#" px="5" py="2" />
+            <div className="hidden md:inline-block">
+              <BookNowButton href="#" px="5" py="2" />
+            </div>
 
             <button
               type="button"
