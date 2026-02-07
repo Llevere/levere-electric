@@ -73,7 +73,6 @@ export default function HeroGalleryClient({ heroImages }: Props) {
           >
             <Image
               src={src}
-              unoptimized
               alt={`Homepage photo ${i + 1}`}
               fill
               priority={i === 0}
