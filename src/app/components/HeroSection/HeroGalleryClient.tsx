@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = { heroImages: string[] };
 
@@ -10,21 +10,42 @@ export default function HeroGalleryClient({ heroImages }: Props) {
 
   const [index, setIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const intervalMs = 4500;
+  const resumeDelayMs = 5000;
 
-  const prev = () => setIndex((i) => (i - 1 + total) % total);
-  const next = () => setIndex((i) => (i + 1) % total);
+  const pauseAndResume = useCallback(() => {
+    setPaused(true);
+    if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    pauseTimer.current = setTimeout(() => setPaused(false), resumeDelayMs);
+  }, []);
 
   useEffect(() => {
-    if (isHovering || total <= 1) return;
+    return () => {
+      if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    };
+  }, []);
+
+  const prev = () => {
+    setIndex((i) => (i - 1 + total) % total);
+    pauseAndResume();
+  };
+  const next = () => {
+    setIndex((i) => (i + 1) % total);
+    pauseAndResume();
+  };
+
+  useEffect(() => {
+    if (isHovering || paused || total <= 1) return;
 
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % total);
     }, intervalMs);
 
     return () => window.clearInterval(id);
-  }, [isHovering, total]);
+  }, [isHovering, paused, total]);
 
   const startX = useRef<number | null>(null);
 
@@ -125,7 +146,10 @@ export default function HeroGalleryClient({ heroImages }: Props) {
                   key={i}
                   type="button"
                   aria-label={`Go to image ${i + 1}`}
-                  onClick={() => setIndex(i)}
+                  onClick={() => {
+                    setIndex(i);
+                    pauseAndResume();
+                  }}
                   className={[
                     "h-2 w-2 rounded-full transition",
                     i === index
