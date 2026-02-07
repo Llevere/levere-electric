@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import BookNowButton from "../BookNowButton";
 export default async function Footer() {
   return (
     <footer className="w-full bg-brand-dark-navy">
@@ -50,13 +51,7 @@ export default async function Footer() {
           </div>
 
           <div className="w-full md:w-auto">
-            <Link
-              href="/book"
-              className="inline-flex w-full items-center justify-center rounded-md bg-brand-gold px-6 py-3
-                                        text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition-colors md:w-auto"
-            >
-              Book Now
-            </Link>
+            <BookNowButton href="#" />
           </div>
         </div>
 

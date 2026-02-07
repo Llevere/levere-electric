@@ -1,3 +1,4 @@
+import BookNowButton from "@/components/BookNowButton";
 import type { ServiceItem } from "@/types/services";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,19 +14,18 @@ export default function ServiceCard({
     <article
       className="
         group flex h-full flex-col overflow-hidden rounded-xl
-        border border-white/10
-        bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))]
-        shadow-[0_18px_60px_rgba(0,0,0,0.28)]
-        transition
-        hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_22px_80px_rgba(0,0,0,0.35)]
+        border border-white/10 bg-white/5
+        transition hover:border-white/20
       "
     >
       <div className="relative h-44 w-full overflow-hidden">
         <Image
           src={src}
+          unoptimized
+          quality={100}
           alt={item.title.replace("\n", " ")}
           fill
-          sizes="(max-width: 1024px) 100vw, 360px"
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="object-cover object-center "
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.25))]" />
@@ -50,19 +50,18 @@ export default function ServiceCard({
           </div>
         </div>
 
-        <Link
+        {/* <Link
           href={item.href}
           className="
-            mt-auto inline-flex w-fit items-center justify-center rounded-md
-            bg-brand-gold px-5 py-2 text-sm font-semibold text-brand-navy
-            shadow-[0_10px_25px_rgba(226,192,81,0.18)]
-            transition
-            hover:bg-brand-gold-3 hover:shadow-[0_14px_35px_rgba(226,192,81,0.22)]
-            active:bg-brand-gold-2
+            mt-auto inline-flex w-fit items-center gap-1.5 border border-brand-gold
+            rounded-md bg-brand-gold px-4 py-2 text-sm font-medium text-brand-navy
+            transition hover:bg-brand-gold-3 hover:border-brand-gold-3
+            active:bg-brand-gold-2 active:border-brand-gold-2
           "
         >
           Book Now
-        </Link>
+        </Link> */}
+        <BookNowButton href="#" />
       </div>
     </article>
   );
