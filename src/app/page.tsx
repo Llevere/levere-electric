@@ -1,5 +1,5 @@
 import Hero from "./components/HeroSection/Hero";
-// import ReviewsSection from "./components/ReviewsSection/ReviewsSection";
+import ReviewsSection from "./components/ReviewsSection/ReviewsSection";
 import OurServicesSection from "./components/Services/OurServices";
 import WhyChooseUsSection from "./components/WhyChooseUs/WhyChooseUsSectionClient";
 import { getImagesByFileName } from "./lib/homeImages";
@@ -20,7 +20,7 @@ export default async function Home() {
       <div className="h-px w-full bg-linear-to-r from-transparent via-brand-gold/25 to-transparent " />
       <WhyChooseUsSection imageSrc={panel} />
 
-      {/* <ReviewsSection /> */}
+      <ReviewsSection />
     </div>
   );
 }

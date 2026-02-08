@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { listFolderCached } from "@/lib/blob";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -7,6 +8,22 @@ import GalleryGrid from "./GalleryGrid";
 type Props = {
   params: Promise<{ folder: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { folder } = await params;
+  if (!isValidFolder(folder)) return {};
+  const label = FOLDER_LABELS[folder];
+  return {
+    title: `${label} Photos`,
+    description: `Photos of ${label.toLowerCase()} projects by Levere Electric in London, ON.`,
+    alternates: { canonical: `/photo-gallery/${folder}` },
+    openGraph: {
+      title: `${label} Photos | Levere Electric`,
+      description: `Photos of ${label.toLowerCase()} projects by Levere Electric in London, ON.`,
+      url: `/photo-gallery/${folder}`,
+    },
+  };
+}
 
 export default async function FolderGalleryPage({ params }: Props) {
   const { folder } = await params;

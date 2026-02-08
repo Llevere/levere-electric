@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import { listFolderCached } from "@/lib/blob";
 import type { BlobImage } from "@/types/images";
 import HeroGallery from "@/components/HeroSection/HeroGallery";
 import Link from "next/link";
 import { GalleryFolders, FOLDER_LABELS } from "./galleryData";
+
+export const metadata: Metadata = {
+  title: "Photo Gallery",
+  description:
+    "Browse photos of our electrical work — EV charger installations, panel upgrades, lighting, and more across London, ON.",
+  alternates: { canonical: "/photo-gallery" },
+  openGraph: {
+    title: "Photo Gallery | Levere Electric",
+    description:
+      "Browse photos of our electrical work — EV charger installations, panel upgrades, lighting, and more.",
+    url: "/photo-gallery",
+  },
+};
 
 function groupByFolder(images: BlobImage[]) {
   const folders = Object.values(GalleryFolders);
@@ -31,7 +45,7 @@ export default async function PhotoGalleryPage() {
             </h3>
             <Link
               href={`/photo-gallery/${folder}`}
-              className="text-sm text-white/60 transition hover:text-brand-gold"
+              className="text-sm  transition text-brand-gold hover:text-brand-gold/80"
             >
               View All
             </Link>

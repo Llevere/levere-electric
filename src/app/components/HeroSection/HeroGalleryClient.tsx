@@ -70,13 +70,9 @@ export default function HeroGalleryClient({ heroImages }: Props) {
 
   return (
     <div
-      className={[
-        "group relative h-full w-full overflow-hidden rounded-xl",
-        "border border-brand-gold/25",
-        "shadow-[0_0_0_1px_rgba(226,192,81,0.15),0_10px_40px_rgba(0,0,0,0.35)]",
-        "hover:shadow-[0_0_0_1px_rgba(226,192,81,0.35),0_12px_60px_rgba(226,192,81,0.08)]",
-        "bg-brand-navy-2/40 transition-shadow duration-300",
-      ].join(" ")}
+      className="group relative h-full w-full overflow-hidden rounded-xl 
+      border border-brand-gold/25 bg-brand-navy-2/40 shadow-[0_0_0_1px_rgba(226,192,81,0.15),0_10px_40px_rgba(0,0,0,0.35)]
+      transition-shadow duration-300 hover:shadow-[0_0_0_1px_rgba(226,192,81,0.35),0_12px_60px_rgba(226,192,81,0.08)]"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onTouchStart={onTouchStart}
@@ -86,24 +82,18 @@ export default function HeroGalleryClient({ heroImages }: Props) {
         {heroImages.map((src, i) => (
           <div
             key={src}
-            className={[
-              "absolute inset-0",
-              "transition-opacity duration-700 ease-[cubic-bezier(.2,.8,.2,1)]",
-              i === index ? "opacity-100" : "opacity-0",
-            ].join(" ")}
+            className={`absolute inset-0 transition-opacity duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
+              ${i === index ? "opacity-100" : "opacity-0"}`}
           >
             <Image
               src={src}
               alt={`Homepage photo ${i + 1}`}
               fill
-              quality={90}
+              quality={75}
               priority={i === 0}
               sizes="(min-width: 1280px) 50vw, (min-width: 768px) 50vw, 100vw"
-              className={[
-                "object-cover",
-                "transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]",
-                i === index ? "scale-[1.02]" : "scale-100",
-              ].join(" ")}
+              className={`object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
+                ${i === index ? "scale-[1.02]" : "scale-100"}`}
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/25 via-black/0 to-black/10" />
           </div>

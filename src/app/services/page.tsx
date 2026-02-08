@@ -1,12 +1,52 @@
+import type { Metadata } from "next";
 import { getImagesByFileName } from "@/lib/homeImages";
 import { SERVICES } from "./servicesData";
 import ServiceCard from "./ServiceCard";
+
+export const metadata: Metadata = {
+  title: "Electrical Services",
+  description:
+    "Residential electrical services in London, ON — lighting installation, panel upgrades, and home electrical repairs. Clean installs, clear pricing. ECRA/ESA #7017944.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Electrical Services | Levere Electric",
+    description:
+      "Residential electrical services in London, ON — lighting installation, panel upgrades, and home electrical repairs.",
+    url: "/services",
+  },
+};
+
+const SERVICES_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: SERVICES.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Service",
+      name: s.title.replace("\n", " "),
+      provider: {
+        "@type": "Electrician",
+        name: "Levere Electric",
+      },
+      areaServed: {
+        "@type": "City",
+        name: "London",
+        addressRegion: "ON",
+      },
+    },
+  })),
+};
 
 export default async function Services() {
   const images = await getImagesByFileName("services/");
 
   return (
     <section className="flex flex-1 items-center justify-center px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICES_JSONLD) }}
+      />
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-14">
           <h2 className="text-center text-3xl font-semibold tracking-tight text-white">

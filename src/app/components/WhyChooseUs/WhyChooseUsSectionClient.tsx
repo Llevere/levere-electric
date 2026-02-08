@@ -85,7 +85,7 @@ export default function WhyChooseUsSectionClient({
               src={imageSrc}
               alt="Electrical panel installation"
               fill
-              quality={90}
+              quality={75}
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
