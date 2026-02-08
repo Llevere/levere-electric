@@ -42,7 +42,7 @@ export default function Navbar() {
 
           <div className="flex shrink-0 items-center gap-3">
             <div className="hidden md:inline-block">
-              <BookNowButton href="#" px="5" py="2" />
+              <BookNowButton href="/" px="5" py="2" />
             </div>
 
             <button

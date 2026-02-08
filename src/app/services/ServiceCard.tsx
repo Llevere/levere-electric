@@ -48,19 +48,7 @@ export default function ServiceCard({
             <span>{item.estimate}</span>
           </div>
         </div>
-
-        {/* <Link
-          href={item.href}
-          className="
-            mt-auto inline-flex w-fit items-center gap-1.5 border border-brand-gold
-            rounded-md bg-brand-gold px-4 py-2 text-sm font-medium text-brand-navy
-            transition hover:bg-brand-gold-3 hover:border-brand-gold-3
-            active:bg-brand-gold-2 active:border-brand-gold-2
-          "
-        >
-          Book Now
-        </Link> */}
-        <BookNowButton href="#" />
+        <BookNowButton href="/" />
       </div>
     </article>
   );
