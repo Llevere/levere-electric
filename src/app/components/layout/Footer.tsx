@@ -12,7 +12,7 @@ export default async function Footer() {
                 src="/FullLogo-Dark.jpg"
                 alt="Levere Electric"
                 fill
-                sizes="12"
+                sizes="128px"
                 className="object-contain"
                 priority={false}
               />

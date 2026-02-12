@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import Hero from "./components/HeroSection/Hero";
 import ReviewsSection from "./components/ReviewsSection/ReviewsSection";
 import OurServicesSection from "./components/Services/OurServices";
 import WhyChooseUsSection from "./components/WhyChooseUs/WhyChooseUsSectionClient";
 import { getImagesByFileName } from "./lib/homeImages";
+
+export const metadata: Metadata = {
+  description:
+    "ESA-licensed residential electrician serving London, St. Thomas, Dorchester & Komoka. EV charger installs, panel upgrades, lighting & repairs. ECRA/ESA #7017944.",
+};
 
 export default async function Home() {
   //Key: image name 'ev-car.jpg'

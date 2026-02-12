@@ -53,6 +53,7 @@ export default function MobileMenu({ open, onClose }: Props) {
                                     key={item.href}
                                     href={item.href}
                                     onClick={onClose}
+                                    tabIndex={open ? 0 : -1}
                                     className={[
                                         "rounded-lg px-3 py-3 text-sm font-medium",
                                         "transition-colors",
@@ -70,6 +71,7 @@ export default function MobileMenu({ open, onClose }: Props) {
                             <Link
                                 href="/book"
                                 onClick={onClose}
+                                tabIndex={open ? 0 : -1}
                                 className="inline-flex w-full items-center justify-center rounded-lg bg-brand-gold px-5 py-3
                   text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition-colors"
                             >

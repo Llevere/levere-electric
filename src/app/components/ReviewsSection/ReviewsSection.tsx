@@ -76,7 +76,7 @@ export default function ReviewsSection() {
                       {review.name}
                     </div>
                     <div
-                      className="text-xs text-brand-cream/50"
+                      className="text-xs text-brand-cream/60"
                       suppressHydrationWarning
                     >
                       {timeAgo(review.date)}

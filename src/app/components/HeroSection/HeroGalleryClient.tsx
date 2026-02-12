@@ -91,6 +91,8 @@ export default function HeroGalleryClient({ heroImages }: Props) {
               fill
               quality={75}
               priority={i === 0}
+              fetchPriority={i === 0 ? "high" : "low"}
+              loading={i === 0 ? "eager" : "lazy"}
               sizes="(min-width: 1280px) 50vw, (min-width: 768px) 50vw, 100vw"
               className={`object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
                 ${i === index ? "scale-[1.02]" : "scale-100"}`}
@@ -131,7 +133,7 @@ export default function HeroGalleryClient({ heroImages }: Props) {
           </button>
 
           {total <= 6 ? (
-            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+            <div className="absolute bottom-1 left-1/2 flex -translate-x-1/2 gap-1">
               {heroImages.map((_, i) => (
                 <button
                   key={i}
@@ -141,13 +143,17 @@ export default function HeroGalleryClient({ heroImages }: Props) {
                     setIndex(i);
                     pauseAndResume();
                   }}
-                  className={[
-                    "h-2 w-2 rounded-full transition",
-                    i === index
-                      ? "bg-brand-gold"
-                      : "bg-brand-cream/35 hover:bg-brand-cream/70",
-                  ].join(" ")}
-                />
+                  className="flex h-6 w-6 cursor-pointer items-center justify-center"
+                >
+                  <span
+                    className={[
+                      "block h-2 w-2 rounded-full transition",
+                      i === index
+                        ? "bg-brand-gold"
+                        : "bg-brand-cream/35 hover:bg-brand-cream/70",
+                    ].join(" ")}
+                  />
+                </button>
               ))}
             </div>
           ) : (
