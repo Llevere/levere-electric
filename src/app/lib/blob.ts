@@ -23,7 +23,18 @@ async function listFolderRaw(prefix: string): Promise<BlobImage[]> {
     .sort((a, b) => a.pathname.localeCompare(b.pathname));
 }
 
-export const listFolderCached = (prefix: string) =>
-  unstable_cache(() => listFolderRaw(prefix), ["blob-folder", prefix], {
-    revalidate: 300, // 5 minutes
-  })();
+//Cache every Monday
+export const listFolderCached = (prefix: string) => {
+  const d = new Date();
+  const oneJan = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil(
+    ((d.getTime() - oneJan.getTime()) / 86400000 + oneJan.getUTCDay() + 1) / 7,
+  );
+  const weekKey = `${d.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
+
+  return unstable_cache(
+    () => listFolderRaw(prefix),
+    ["blob-folder", prefix, weekKey],
+    { revalidate: 60 * 60 * 24 * 7 },
+  )();
+};
