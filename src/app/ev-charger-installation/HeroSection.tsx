@@ -38,30 +38,16 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
             <div className="mt-5 flex flex-col gap-3">
               <div className="flex flex-row gap-3 max-w-md">
                 <Link
-                  href="/contact"
+                  target="_"
+                  href="https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207525/new"
                   className="
                     group inline-flex items-center justify-center
                     rounded-xl bg-brand-gold px-4 py-2.5
                     text-sm font-semibold text-brand-navy
                     shadow-[0_8px_24px_rgba(226,192,81,0.18)]
                     transition hover:brightness-110 active:brightness-95
-                    w-40 
+                    w-40 cursor-pointer
                   "
-                >
-                  Book Installation
-                  <span className="ml-2 inline-block transition group-hover:translate-x-0.5">
-                    →
-                  </span>
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="
-                    inline-flex items-center justify-center
-                    rounded-xl border border-white/15 bg-white/5 px-4 py-2.5
-                    text-sm font-semibold text-white backdrop-blur
-                    transition hover:bg-white/10
-                    w-40"
                 >
                   Request Quote
                 </Link>
@@ -105,13 +91,6 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
             </div>
           </div>
         </div>
-
-        {/* <div className="mb-3 flex justify-center sm:mb-0 lg:mt-3">
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70 backdrop-blur">
-            <span className="animate-bounce">↓</span>
-            Scroll for details
-          </div>
-        </div> */}
       </div>
     </section>
   );

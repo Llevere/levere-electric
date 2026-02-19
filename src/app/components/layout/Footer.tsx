@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import BookNowButton from "../BookNowButton";
 export default async function Footer() {
@@ -51,7 +50,7 @@ export default async function Footer() {
           </div>
 
           <div className="w-full md:w-auto">
-            <BookNowButton href="/book" />
+            <BookNowButton />
           </div>
         </div>
 
