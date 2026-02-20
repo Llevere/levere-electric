@@ -1,10 +1,10 @@
 import "server-only";
-import { listFolderCached } from "@/lib/blob";
+import { getIndexedImages } from "@/lib/blob";
 
 export async function getImagesByFileName(
   location: string
 ): Promise<Map<string, string>> {
-  const images = await listFolderCached(location);
+  const images = await getIndexedImages(location);
   const byName = new Map(images.map((i) => [i.fileName, i.url]));
 
   return byName;

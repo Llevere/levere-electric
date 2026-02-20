@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { listFolderCached } from "@/lib/blob";
+import { getIndexedImages } from "@/lib/blob";
 import type { BlobImage } from "@/types/images";
 import HeroGallery from "@/components/HeroSection/HeroGallery";
 import Link from "next/link";
@@ -33,7 +33,7 @@ function groupByFolder(images: BlobImage[]) {
   return grouped;
 }
 export default async function PhotoGalleryPage() {
-  const images = await listFolderCached("gallery/");
+  const images = await getIndexedImages("gallery/");
   const grouped = groupByFolder(images);
   return (
     <section className="grid grid-cols-1 gap-8 px-6 py-12 md:grid-cols-2 max-w-6xl mx-auto w-full">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { listFolderCached } from "@/lib/blob";
+import { getIndexedImages } from "@/lib/blob";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FOLDER_LABELS, isValidFolder } from "../galleryData";
@@ -31,7 +31,7 @@ export default async function FolderGalleryPage({ params }: Props) {
   if (!isValidFolder(folder)) notFound();
 
   const label = FOLDER_LABELS[folder];
-  const images = await listFolderCached(`gallery/${folder}/`);
+  const images = await getIndexedImages(`gallery/${folder}/`);
   const serialized = images.map((img) => ({
     url: img.url,
     fileName: img.fileName,
