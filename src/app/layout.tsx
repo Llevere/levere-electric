@@ -12,6 +12,9 @@ const geistSans = Geist({
 const SITE_URL = "https://levere-electric.ca";
 
 export const metadata: Metadata = {
+  verification: {
+    google: "R1iKLziAYLQAvQLHLOYQj51E3QsIsuuKnVex6-BNjUc",
+  },
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Levere Electric | Licensed Electrician in London, ON",
