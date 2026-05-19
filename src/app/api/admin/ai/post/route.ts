@@ -223,7 +223,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const result = await generateGeminiJson({
+    const result = await generateGeminiJson<Record<string, unknown>>({
       systemInstruction: SYSTEM_INSTRUCTION,
       prompt: buildPrompt(body.action, body.input),
       temperature: body.action === "titleIdeas" ? 0.8 : 0.45,
@@ -235,7 +235,7 @@ export async function POST(req: NextRequest) {
             : 700,
     });
 
-    const safeResult = { ...result } as Record<string, unknown>;
+    const safeResult = { ...result };
     if (typeof safeResult.content === "string") {
       safeResult.content = sanitizeBlogHtml(safeResult.content);
     }
