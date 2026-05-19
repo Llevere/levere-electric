@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { syncPrefixToRedis } from "@/lib/blob";
 
 const KNOWN_PREFIXES = [
+  "blog/",
   "home/",
   "services/",
   "gallery/",

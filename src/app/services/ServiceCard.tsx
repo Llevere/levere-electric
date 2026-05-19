@@ -1,7 +1,6 @@
 import BookNowButton from "@/components/BookNowButton";
 import type { ServiceItem } from "@/types/services";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function ServiceCard({
   item,

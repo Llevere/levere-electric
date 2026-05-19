@@ -1,13 +1,31 @@
 import type { MetadataRoute } from "next";
+import { eq } from "drizzle-orm";
+import { db } from "./lib/db";
+import { blogPosts } from "./lib/schema";
 import { GalleryFolders } from "./photo-gallery/galleryData";
 
 const SITE_URL = "https://levere-electric.ca";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const galleryFolders = Object.values(GalleryFolders).map((folder) => ({
     url: `${SITE_URL}/photo-gallery/${folder}`,
     changeFrequency: "monthly" as const,
     priority: 0.6,
+  }));
+
+  const posts = await db
+    .select({
+      slug: blogPosts.slug,
+      updatedAt: blogPosts.updatedAt,
+    })
+    .from(blogPosts)
+    .where(eq(blogPosts.published, true));
+
+  const blogEntries = posts.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: post.updatedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
   return [
@@ -32,6 +50,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/blog`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/photo-gallery`,
       changeFrequency: "monthly",
       priority: 0.7,
@@ -42,5 +65,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.7,
     },
+    ...blogEntries,
   ];
 }
