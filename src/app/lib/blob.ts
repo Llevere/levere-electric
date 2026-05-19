@@ -34,6 +34,57 @@ export async function getIndexedImages(prefix: string): Promise<BlobImage[]> {
   return JSON.parse(raw) as BlobImage[];
 }
 
+export async function getIndexedFolderListing(
+  prefix: string,
+  limit: number,
+  cursor?: string
+): Promise<{
+  folders: { pathname: string; name: string }[];
+  images: BlobImage[];
+  cursor: string | null;
+  hasMore: boolean;
+} | null> {
+  const indexed = await getIndexedImages(prefix);
+  if (indexed.length === 0) return null;
+
+  const folderMap = new Map<string, { pathname: string; name: string }>();
+  const immediateImages: BlobImage[] = [];
+
+  for (const image of indexed) {
+    const remainder = image.pathname.slice(prefix.length);
+    if (!remainder) continue;
+
+    const slashIndex = remainder.indexOf("/");
+    if (slashIndex >= 0) {
+      const folderName = remainder.slice(0, slashIndex);
+      const pathname = `${prefix}${folderName}/`;
+      if (!folderMap.has(pathname)) {
+        folderMap.set(pathname, {
+          pathname,
+          name: folderName,
+        });
+      }
+      continue;
+    }
+
+    immediateImages.push(image);
+  }
+
+  immediateImages.sort((a, b) => (b.uploadedAt ?? "").localeCompare(a.uploadedAt ?? ""));
+
+  const offset = cursor ? Number.parseInt(cursor, 10) || 0 : 0;
+  const pagedImages = immediateImages.slice(offset, offset + limit);
+  const nextOffset = offset + limit;
+  const hasMore = nextOffset < immediateImages.length;
+
+  return {
+    folders: [...folderMap.values()].sort((a, b) => a.pathname.localeCompare(b.pathname)),
+    images: pagedImages,
+    cursor: hasMore ? String(nextOffset) : null,
+    hasMore,
+  };
+}
+
 export async function syncPrefixToRedis(prefix: string): Promise<number> {
   const images = await listFolderRaw(prefix);
   const client = await getRedis();

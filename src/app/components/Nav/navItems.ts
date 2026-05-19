@@ -12,6 +12,7 @@ export const NAV_ITEMS: NavItem[] = [
     match: "startsWith",
   },
   { label: "Services", href: "/services", match: "startsWith" },
+  { label: "Blog", href: "/blog", match: "startsWith" },
   { label: "Photo Gallery", href: "/photo-gallery", match: "startsWith" },
 ];
 

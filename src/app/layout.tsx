@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Nav/Navbar";
-import Footer from "./components/layout/Footer";
-import { Analytics } from "@vercel/analytics/next";
+import PublicLayout from "./components/PublicLayout";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -42,37 +41,6 @@ export const metadata: Metadata = {
   },
 };
 
-const LOCAL_BUSINESS_JSONLD = {
-  "@context": "https://schema.org",
-  "@type": "Electrician",
-  name: "Levere Electric",
-  url: SITE_URL,
-  telephone: "+1-226-559-7897",
-  email: "LevereElectric@gmail.com",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "London",
-    addressRegion: "ON",
-    addressCountry: "CA",
-  },
-  areaServed: [
-    { "@type": "City", name: "London", addressRegion: "ON" },
-    { "@type": "City", name: "St. Thomas", addressRegion: "ON" },
-    { "@type": "City", name: "Dorchester", addressRegion: "ON" },
-    { "@type": "City", name: "Komoka", addressRegion: "ON" },
-  ],
-  hasCredential: {
-    "@type": "EducationalOccupationalCredential",
-    credentialCategory: "ECRA/ESA License",
-    recognizedBy: {
-      "@type": "Organization",
-      name: "Electrical Safety Authority",
-    },
-    identifier: "7017944",
-  },
-  priceRange: "$$",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,18 +51,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} antialiased min-h-dvh bg-brand-navy text-brand-cream`}
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(LOCAL_BUSINESS_JSONLD),
-          }}
-        />
-        <div className="min-h-dvh flex flex-col">
-          <Navbar />
-          <main className="flex flex-1 flex-col">{children}</main>
-          <Footer />
-        </div>
-        <Analytics />
+        <PublicLayout>{children}</PublicLayout>
       </body>
     </html>
   );
