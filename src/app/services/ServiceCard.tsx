@@ -62,7 +62,7 @@ export default function ServiceCard({
               href={item.href}
               className="inline-flex items-center justify-center rounded-md border border-brand-gold/50 px-5 py-3 text-sm text-brand-cream hover:bg-brand-gold/10 transition"
             >
-              Learn more
+              Learn more<span className="sr-only"> about {title}</span>
             </Link>
           )}
           <BookNowButton href={JOBBER.general} label="Request a quote" />

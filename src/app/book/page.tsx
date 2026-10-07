@@ -69,7 +69,7 @@ export default function Book() {
                 href={r.learn}
                 className="text-center text-xs text-brand-gold/90 hover:text-brand-gold-3"
               >
-                Learn more
+                Learn more<span className="sr-only"> about {r.title.toLowerCase()}</span>
               </Link>
             </div>
           </div>
