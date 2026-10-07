@@ -84,7 +84,9 @@ export default function WhyChooseUsSectionClient({
               alt="Electrical panel installation"
               fill
               quality={75}
-              sizes="(min-width: 768px) 50vw, 100vw"
+              // Half of the 2xl container minus its padding and the column gap
+              // on desktop; the viewport minus the section padding below that.
+              sizes="(min-width: 1536px) 720px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 48px)"
               className="object-cover"
             />
           </div>
