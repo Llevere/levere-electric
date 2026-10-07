@@ -47,3 +47,47 @@ body {
 .bg-secondary {
     background-color: var(--color-brand-gold);
 }
+/* Loading placeholder for images (see components/SkeletonImage.tsx). It sits
+   underneath the <img>, so it only shows while the bytes are still arriving. */
+.img-skeleton {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: var(--color-brand-navy-3);
+    transition: opacity 400ms ease-out;
+}
+
+.img-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        100deg,
+        transparent 25%,
+        rgba(247, 244, 236, 0.09) 50%,
+        transparent 75%
+    );
+    transform: translateX(-100%);
+    animation: img-skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+.img-skeleton.is-settled {
+    opacity: 0;
+}
+
+.img-skeleton.is-settled::after {
+    animation: none;
+}
+
+@keyframes img-skeleton-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .img-skeleton::after {
+        animation: none;
+    }
+}

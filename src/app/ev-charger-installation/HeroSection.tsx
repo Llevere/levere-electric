@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SkeletonImage from "@/components/SkeletonImage";
 import Link from "next/link";
 import { FEATURES } from "./data";
 import { JOBBER } from "@/lib/site";
@@ -6,7 +6,7 @@ import { JOBBER } from "@/lib/site";
 export default function HeroSection({ heroUrl }: { heroUrl: string }) {
   return (
     <section className="relative w-full overflow-hidden min-h-[calc(100dvh-5rem)]">
-      <Image
+      <SkeletonImage
         src={heroUrl}
         alt="Level 2 EV charger installed by Levere Electric in London, Ontario"
         fill
