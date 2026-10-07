@@ -44,7 +44,7 @@ export default function OurServiceCard({
           href={learnHref}
           className="cursor-pointer inline-flex rounded-md border border-brand-gold/50 px-5 py-2 text-sm text-brand-cream hover:bg-brand-gold/10 transition"
         >
-          Learn more
+          Learn more<span className="sr-only"> about {title}</span>
         </Link>
         <Link
           target="_blank"

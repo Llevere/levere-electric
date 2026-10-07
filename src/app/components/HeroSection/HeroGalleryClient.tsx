@@ -10,7 +10,12 @@ type SlideState = {
   /** Slides that have been shown (or are up next) and therefore render an <img>. */
   mounted: ReadonlySet<number>;
 };
-type SlideAction = { type: "next" } | { type: "prev" } | { type: "goto"; index: number };
+type SlideAction =
+  | { type: "next" }
+  | { type: "prev" }
+  | { type: "goto"; index: number }
+  // Mounts the slide after the current one without moving the carousel.
+  | { type: "warm" };
 
 // Slides are stacked inside the viewport, so `loading="lazy"` never defers
 // them and every photo would download on first paint. Only the current slide
@@ -37,8 +42,19 @@ export default function HeroGalleryClient({ heroImages }: Props) {
   const [{ index, mounted }, dispatch] = useReducer(
     makeReducer(total),
     total,
-    (n) => ({ index: 0, mounted: new Set(n > 1 ? [0, 1] : [0]) }),
+    () => ({ index: 0, mounted: new Set([0]) }),
   );
+
+  // Only the first slide is in the server HTML, so on a phone (where the
+  // gallery sits below the hero text) the second photo is not competing with
+  // the text, font and CSS for first-paint bandwidth. It is mounted shortly
+  // after hydration, well before the first auto-advance, so it is already
+  // decoded when the carousel moves.
+  useEffect(() => {
+    if (total <= 1) return;
+    const id = window.setTimeout(() => dispatch({ type: "warm" }), 1500);
+    return () => window.clearTimeout(id);
+  }, [total]);
   const [isHovering, setIsHovering] = useState(false);
   const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
