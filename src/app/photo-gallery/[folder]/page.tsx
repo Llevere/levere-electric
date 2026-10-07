@@ -86,7 +86,7 @@ export default async function FolderGalleryPage({ params }: Props) {
         {FOLDER_DESCRIPTIONS[folder]}
       </p>
 
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-brand-navy-2/30 p-3">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-brand-navy-2/30 p-3 pr-2">
         <GalleryGrid images={serialized} altBase={FOLDER_ALT[folder]} />
       </div>
     </section>
