@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import SkeletonImage from "@/components/SkeletonImage";
 import Link from "next/link";
 import { getIndexedImages } from "@/lib/blob";
 import type { BlobImage } from "@/types/images";
@@ -66,7 +66,7 @@ export default async function PhotoGalleryPage() {
             >
               <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg bg-brand-navy-2">
                 {cover ? (
-                  <Image
+                  <SkeletonImage
                     src={cover.url}
                     alt={FOLDER_ALT[folder]}
                     fill

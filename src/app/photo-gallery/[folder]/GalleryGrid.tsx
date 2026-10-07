@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import SkeletonImage from "@/components/SkeletonImage";
 import { useCallback, useEffect, useState } from "react";
 
 type Props = {
@@ -55,7 +55,7 @@ export default function GalleryGrid({ images, altBase }: Props) {
             className="relative aspect-4/3 overflow-hidden rounded-lg cursor-pointer
                        transition hover:opacity-90 active:scale-[0.98]"
           >
-            <Image
+            <SkeletonImage
               src={img.url}
               alt={altFor(i)}
               fill
@@ -158,8 +158,9 @@ export default function GalleryGrid({ images, altBase }: Props) {
             className="relative h-[85vh] w-[90vw]"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
+            <SkeletonImage
               key={images[openIndex].url}
+              skeletonClassName="rounded-lg"
               src={images[openIndex].url}
               alt={altFor(openIndex)}
               fill

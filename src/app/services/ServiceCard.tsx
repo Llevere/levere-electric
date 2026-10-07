@@ -1,6 +1,6 @@
 import BookNowButton from "@/components/BookNowButton";
 import type { ServiceItem } from "@/types/services";
-import Image from "next/image";
+import SkeletonImage from "@/components/SkeletonImage";
 import Link from "next/link";
 import { JOBBER } from "@/lib/site";
 
@@ -21,7 +21,7 @@ export default function ServiceCard({
       "
     >
       <div className="relative h-44 w-full overflow-hidden">
-        <Image
+        <SkeletonImage
           src={src}
           alt={`${title} by Levere Electric, London, Ontario`}
           fill

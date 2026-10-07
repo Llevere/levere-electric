@@ -1,14 +1,44 @@
 "use client";
 
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import SkeletonImage from "@/components/SkeletonImage";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 
 type Props = { heroImages: string[] };
+
+type SlideState = {
+  index: number;
+  /** Slides that have been shown (or are up next) and therefore render an <img>. */
+  mounted: ReadonlySet<number>;
+};
+type SlideAction = { type: "next" } | { type: "prev" } | { type: "goto"; index: number };
+
+// Slides are stacked inside the viewport, so `loading="lazy"` never defers
+// them and every photo would download on first paint. Only the current slide
+// and the one after it are mounted, so the LCP image is not competing with the
+// rest of the carousel for mobile bandwidth.
+function makeReducer(total: number) {
+  return (state: SlideState, action: SlideAction): SlideState => {
+    let index = state.index;
+    if (action.type === "next") index = (state.index + 1) % total;
+    if (action.type === "prev") index = (state.index - 1 + total) % total;
+    if (action.type === "goto") index = action.index;
+
+    const upNext = (index + 1) % total;
+    const mounted = state.mounted.has(index) && state.mounted.has(upNext)
+      ? state.mounted
+      : new Set(state.mounted).add(index).add(upNext);
+    return { index, mounted };
+  };
+}
 
 export default function HeroGalleryClient({ heroImages }: Props) {
   const total = heroImages.length;
 
-  const [index, setIndex] = useState(0);
+  const [{ index, mounted }, dispatch] = useReducer(
+    makeReducer(total),
+    total,
+    (n) => ({ index: 0, mounted: new Set(n > 1 ? [0, 1] : [0]) }),
+  );
   const [isHovering, setIsHovering] = useState(false);
   const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -29,11 +59,11 @@ export default function HeroGalleryClient({ heroImages }: Props) {
   }, []);
 
   const prev = () => {
-    setIndex((i) => (i - 1 + total) % total);
+    dispatch({ type: "prev" });
     pauseAndResume();
   };
   const next = () => {
-    setIndex((i) => (i + 1) % total);
+    dispatch({ type: "next" });
     pauseAndResume();
   };
 
@@ -41,7 +71,7 @@ export default function HeroGalleryClient({ heroImages }: Props) {
     if (isHovering || paused || total <= 1) return;
 
     const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % total);
+      dispatch({ type: "next" });
     }, intervalMs);
 
     return () => window.clearInterval(id);
@@ -85,18 +115,19 @@ export default function HeroGalleryClient({ heroImages }: Props) {
             className={`absolute inset-0 transition-opacity duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
               ${i === index ? "opacity-100" : "opacity-0"}`}
           >
-            <Image
-              src={src}
-              alt={`Levere Electric project photo ${i + 1}: residential electrical work in London, Ontario`}
-              fill
-              quality={75}
-              priority={i === 0}
-              fetchPriority={i === 0 ? "high" : "low"}
-              loading={i === 0 ? "eager" : "lazy"}
-              sizes="(min-width: 1024px) 592px, calc(100vw - 48px)"
-              className={`object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
-                ${i === index ? "scale-[1.02]" : "scale-100"}`}
-            />
+            {mounted.has(i) && (
+              <SkeletonImage
+                src={src}
+                alt={`Levere Electric project photo ${i + 1}: residential electrical work in London, Ontario`}
+                fill
+                quality={75}
+                priority={i === 0}
+                fetchPriority={i === 0 ? "high" : "low"}
+                sizes="(min-width: 1024px) 592px, calc(100vw - 48px)"
+                className={`object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
+                  ${i === index ? "scale-[1.02]" : "scale-100"}`}
+              />
+            )}
             <div className="absolute inset-0 bg-linear-to-t from-black/25 via-black/0 to-black/10" />
           </div>
         ))}
@@ -140,7 +171,7 @@ export default function HeroGalleryClient({ heroImages }: Props) {
                   type="button"
                   aria-label={`Go to image ${i + 1}`}
                   onClick={() => {
-                    setIndex(i);
+                    dispatch({ type: "goto", index: i });
                     pauseAndResume();
                   }}
                   className="flex h-6 w-6 cursor-pointer items-center justify-center"

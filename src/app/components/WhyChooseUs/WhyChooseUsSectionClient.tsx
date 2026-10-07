@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SkeletonImage from "@/components/SkeletonImage";
 
 const FEATURES = [
   {
@@ -79,7 +79,7 @@ export default function WhyChooseUsSectionClient({
         {/* Right */}
         <div className="relative">
           <div className="relative aspect-4/5 w-full overflow-hidden rounded-xl border border-brand-cream/10 bg-brand-navy/50 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
-            <Image
+            <SkeletonImage
               src={imageSrc}
               alt="Electrical panel installation"
               fill
