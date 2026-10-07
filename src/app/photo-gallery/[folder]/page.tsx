@@ -51,12 +51,18 @@ export default async function FolderGalleryPage({ params }: Props) {
   }));
 
   return (
-    <section className="max-w-6xl mx-auto w-full px-6 py-12">
-      <div className="relative mb-6 flex items-center justify-center">
+    // The section fills the viewport below the fixed 5rem navbar. The heading
+    // and description stay put and only the photo grid scrolls, inside its own
+    // box; the page itself scrolls only to reach the footer.
+    <section className="mx-auto flex h-[calc(100dvh-5rem)] w-full max-w-6xl flex-col px-6 pb-6 pt-8">
+      {/* Stacked on phones (the absolute back link overlapped long titles);
+          back link floats left of the centred title from md up. */}
+      <div className="mb-5 flex shrink-0 flex-col items-start gap-3 md:relative md:flex-row md:items-center md:justify-center">
         <Link
           href="/photo-gallery"
-          className="cursor-pointer absolute left-0 flex items-center gap-1.5 rounded-md border border-white/15
-                     px-3 py-1.5 text-sm text-white/70 transition hover:border-brand-gold hover:text-brand-gold"
+          className="cursor-pointer flex items-center gap-1.5 rounded-md border border-white/15
+                     px-3 py-1.5 text-sm text-white/70 transition hover:border-brand-gold hover:text-brand-gold
+                     md:absolute md:left-0"
         >
           <svg
             className="h-4 w-4"
@@ -74,13 +80,15 @@ export default async function FolderGalleryPage({ params }: Props) {
           </svg>
           Gallery
         </Link>
-        <h1 className="text-2xl font-semibold text-white">{label}</h1>
+        <h1 className="self-center text-2xl font-semibold text-white">{label}</h1>
       </div>
-      <p className="mx-auto mb-10 max-w-2xl text-center text-sm text-brand-cream/75">
+      <p className="mx-auto mb-5 max-w-2xl shrink-0 text-center text-sm text-brand-cream/75">
         {FOLDER_DESCRIPTIONS[folder]}
       </p>
 
-      <GalleryGrid images={serialized} altBase={FOLDER_ALT[folder]} />
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-brand-navy-2/30 p-3">
+        <GalleryGrid images={serialized} altBase={FOLDER_ALT[folder]} />
+      </div>
     </section>
   );
 }
