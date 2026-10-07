@@ -1,16 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FEATURES } from "./data";
+import { JOBBER } from "@/lib/site";
 
 export default function HeroSection({ heroUrl }: { heroUrl: string }) {
   return (
     <section className="relative w-full overflow-hidden min-h-[calc(100dvh-5rem)]">
       <Image
         src={heroUrl}
-        alt="EV charger installation"
+        alt="Level 2 EV charger installed by Levere Electric in London, Ontario"
         fill
         quality={75}
         priority
+        sizes="100vw"
         className="object-cover object-center"
       />
 
@@ -25,7 +27,7 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
         <div className="pb-2">
           <div className="max-w-3xl">
             <h1 className="mt-3 font-semibold leading-[1.06] tracking-tight text-[clamp(2rem,8vw,3.25rem)] md:text-6xl">
-              Home EV Charger Installation{" "}
+              EV Charger Installation in London, Ontario,{" "}
               <span className="text-brand-gold">Done Right</span>
             </h1>
 
@@ -38,8 +40,9 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
             <div className="mt-5 flex flex-col gap-3">
               <div className="flex flex-row gap-3 max-w-md">
                 <Link
-                  target="_"
-                  href="https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207525/new"
+                  target="_blank"
+                rel="noopener noreferrer"
+                  href={JOBBER.ev}
                   className="
                     group inline-flex items-center justify-center
                     rounded-xl bg-brand-gold px-4 py-2.5
@@ -49,7 +52,7 @@ export default function HeroSection({ heroUrl }: { heroUrl: string }) {
                     w-40 cursor-pointer
                   "
                 >
-                  Request Quote
+                  Request a Quote
                 </Link>
               </div>
 

@@ -5,9 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   images: { url: string; fileName: string }[];
+  /** Descriptive alt prefix for the folder, e.g. "Electrical panel upgrade by Levere Electric, London, Ontario". */
+  altBase: string;
 };
 
-export default function GalleryGrid({ images }: Props) {
+export default function GalleryGrid({ images, altBase }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const close = () => setOpenIndex(null);
@@ -40,6 +42,8 @@ export default function GalleryGrid({ images }: Props) {
     };
   }, [openIndex, prev, next]);
 
+  const altFor = (i: number) => `${altBase} (photo ${i + 1} of ${images.length})`;
+
   return (
     <>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
@@ -47,14 +51,19 @@ export default function GalleryGrid({ images }: Props) {
           <button
             key={img.url}
             onClick={() => setOpenIndex(i)}
+            aria-label={`Open photo ${i + 1} of ${images.length}`}
             className="relative aspect-4/3 overflow-hidden rounded-lg cursor-pointer
                        transition hover:opacity-90 active:scale-[0.98]"
           >
             <Image
               src={img.url}
-              alt={img.fileName}
+              alt={altFor(i)}
               fill
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+              // The first cells are the LCP element on every breakpoint: preload
+              // them instead of lazy-loading, and keep the rest lazy.
+              priority={i < 2}
+              loading={i < 6 ? "eager" : "lazy"}
+              sizes="(min-width: 1024px) 264px, (min-width: 768px) 33vw, 50vw"
               className="object-cover"
             />
           </button>
@@ -65,6 +74,9 @@ export default function GalleryGrid({ images }: Props) {
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={close}
+          role="dialog"
+          aria-modal="true"
+          aria-label={altFor(openIndex)}
         >
           <a
             href={images[openIndex].url}
@@ -73,7 +85,7 @@ export default function GalleryGrid({ images }: Props) {
             onClick={(e) => e.stopPropagation()}
             className="absolute right-16 top-4 z-10 rounded-full bg-white/10 p-2 text-white
                        transition hover:bg-white/20"
-            aria-label="Open in new tab"
+            aria-label="Open full-size original in new tab"
           >
             <svg
               className="h-6 w-6"
@@ -81,6 +93,7 @@ export default function GalleryGrid({ images }: Props) {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -103,6 +116,7 @@ export default function GalleryGrid({ images }: Props) {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -138,13 +152,20 @@ export default function GalleryGrid({ images }: Props) {
             ›
           </button>
 
-          <div className="flex h-[85vh] w-[90vw] items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+          {/* Enlarged view goes through the image optimizer (sized to the viewport)
+              instead of downloading the multi-megabyte original on every tap. */}
+          <div
+            className="relative h-[85vh] w-[90vw]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              key={images[openIndex].url}
               src={images[openIndex].url}
-              alt={images[openIndex].fileName}
-              onClick={(e) => e.stopPropagation()}
-              className="max-h-full max-w-full rounded-lg"
+              alt={altFor(openIndex)}
+              fill
+              priority
+              sizes="90vw"
+              className="rounded-lg object-contain"
             />
           </div>
 

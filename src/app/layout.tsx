@@ -4,12 +4,15 @@ import "./globals.css";
 import Navbar from "./components/Nav/Navbar";
 import Footer from "./components/layout/Footer";
 import { Analytics } from "@vercel/analytics/next";
+import { BUSINESS, SITE_URL } from "./lib/site";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://levere-electric.ca";
+const DEFAULT_TITLE = "Licensed Electrician in London, Ontario | Levere Electric";
+const DEFAULT_DESCRIPTION =
+  "ESA-licensed, owner-operated residential electrician serving London, St. Thomas, Dorchester, Komoka & Delaware. EV charger installs, panel upgrades, lighting & repairs. ECRA/ESA #7017944.";
 
 export const metadata: Metadata = {
   verification: {
@@ -17,59 +20,88 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Levere Electric | Licensed Electrician in London, ON",
+    default: DEFAULT_TITLE,
     template: "%s | Levere Electric",
   },
-  description:
-    "ESA-licensed residential electrician serving London, St. Thomas, Dorchester & Komoka. EV charger installs, panel upgrades, lighting & repairs. ECRA/ESA #7017944.",
+  description: DEFAULT_DESCRIPTION,
   openGraph: {
     type: "website",
     locale: "en_CA",
     url: SITE_URL,
     siteName: "Levere Electric",
-    title: "Levere Electric | Licensed Electrician in London, ON",
-    description:
-      "ESA-licensed residential electrician serving London, St. Thomas, Dorchester & Komoka. EV charger installs, panel upgrades, lighting & repairs.",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Levere Electric, licensed electrician in London, Ontario",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
-    title: "Levere Electric | Licensed Electrician in London, ON",
-    description:
-      "ESA-licensed residential electrician serving London, St. Thomas, Dorchester & Komoka.",
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: ["/og.png"],
   },
   alternates: {
     canonical: SITE_URL,
   },
 };
 
+// One business entity for the whole site. Page-level blocks reference it via
+// { "@id": `${SITE_URL}/#business` } instead of declaring a second Electrician.
+export const BUSINESS_ID = `${SITE_URL}/#business`;
+
 const LOCAL_BUSINESS_JSONLD = {
   "@context": "https://schema.org",
-  "@type": "Electrician",
-  name: "Levere Electric",
+  "@type": ["Electrician", "LocalBusiness"],
+  "@id": BUSINESS_ID,
+  name: BUSINESS.name,
   url: SITE_URL,
-  telephone: "+1-226-559-7897",
-  email: "LevereElectric@gmail.com",
+  logo: `${SITE_URL}/FullLogo.png`,
+  image: `${SITE_URL}/og.png`,
+  telephone: BUSINESS.phoneE164,
+  email: BUSINESS.email,
+  foundingDate: BUSINESS.foundingDate,
+  founder: { "@type": "Person", name: BUSINESS.owner },
+  // Service-area business: no street address is published until Brandon
+  // confirms which address (if any) should be public.
   address: {
     "@type": "PostalAddress",
     addressLocality: "London",
     addressRegion: "ON",
     addressCountry: "CA",
   },
-  areaServed: [
-    { "@type": "City", name: "London", addressRegion: "ON" },
-    { "@type": "City", name: "St. Thomas", addressRegion: "ON" },
-    { "@type": "City", name: "Dorchester", addressRegion: "ON" },
-    { "@type": "City", name: "Komoka", addressRegion: "ON" },
-  ],
+  areaServed: BUSINESS.serviceAreas.map((name) => ({
+    "@type": "City",
+    name: `${name}, Ontario`,
+  })),
   hasCredential: {
     "@type": "EducationalOccupationalCredential",
-    credentialCategory: "ECRA/ESA License",
+    credentialCategory: "ECRA/ESA Licensed Electrical Contractor",
     recognizedBy: {
       "@type": "Organization",
       name: "Electrical Safety Authority",
     },
-    identifier: "7017944",
+    identifier: BUSINESS.licence,
   },
+  knowsAbout: [
+    "EV charger installation",
+    "Tesla Wall Connector installation",
+    "Electrical panel and service upgrades",
+    "Residential electrical troubleshooting and repairs",
+    "Lighting installation",
+  ],
+  openingHours: BUSINESS.openingHours,
+  sameAs: [
+    BUSINESS.googleUrl,
+    BUSINESS.facebookUrl,
+    BUSINESS.instagramUrl,
+    BUSINESS.bbbUrl,
+  ],
   priceRange: "$$",
 };
 
@@ -79,7 +111,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-CA">
       <body
         className={`${geistSans.variable} antialiased min-h-dvh bg-brand-navy text-brand-cream`}
       >

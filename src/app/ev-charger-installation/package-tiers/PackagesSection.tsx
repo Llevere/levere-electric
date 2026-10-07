@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PACKAGES, PackageKey } from "../data";
 import useLocalStorageState from "../hook/useLocalStorageState";
 import PackageCardMobile from "./PackageCardMobile";
+import { JOBBER } from "@/lib/site";
 
 export default function PackagesSection() {
   const [selectedTier, setSelectedTier] = useLocalStorageState<PackageKey>(
@@ -28,11 +29,12 @@ export default function PackagesSection() {
 
           <div className="flex gap-2">
             <Link
-              target="_"
-              href="https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207525/new"
+              target="_blank"
+                rel="noopener noreferrer"
+              href={JOBBER.ev}
               className="inline-flex items-center justify-center rounded-xl bg-brand-gold px-4 py-2 text-sm font-semibold text-brand-navy transition hover:brightness-110"
             >
-              Get a Quote
+              Request a Quote
             </Link>
           </div>
         </div>
@@ -67,8 +69,9 @@ export default function PackagesSection() {
 
               <div className="mt-auto pt-6">
                 <Link
-                  target="_"
-                  href="https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207543/new"
+                  target="_blank"
+                rel="noopener noreferrer"
+                  href={JOBBER.ev}
                   className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-black/20 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
                   {p.cta}

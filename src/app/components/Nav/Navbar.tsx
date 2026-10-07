@@ -6,6 +6,7 @@ import NavbarLogo from "./NavbarLogo";
 import NavLinks from "./NavLinks";
 import MobileMenu from "./MobileMenu";
 import BookNowButton from "../BookNowButton";
+import { JOBBER } from "@/lib/site";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -43,10 +44,9 @@ export default function Navbar() {
           <div className="flex shrink-0 items-center gap-3">
             <div className="hidden md:flex items-center gap-2">
               <Link
-                href={
-                  "https://clienthub.getjobber.com/client_hubs/44f2974d-a806-4304-a72e-528f6432cdd0/login/new?source=share_login"
-                }
-                target="_"
+                href={JOBBER.clientHub}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="cursor-pointer inline-flex items-center justify-center rounded-md bg-[#00B241] px-5 py-2
                   text-sm font-semibold text-black hover:bg-[#00a03a] active:bg-[#008f33] transition-colors"
               >

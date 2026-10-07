@@ -1,27 +1,31 @@
 import OurServiceCard from "./OurServicesCard";
 import type { ServiceCardType } from "./types/ServiceCard";
 import { Car, Lightbulb, Zap } from "lucide-react";
+import { JOBBER } from "@/lib/site";
 
 const SERVICES: ServiceCardType[] = [
   {
     title: "EV Charger Installation",
     description:
       "Professional Level 2 charger installation with panel assessment, load calculation, and ESA-compliant setup.",
-    href: "https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207543/new",
+    learnHref: "/ev-charger-installation",
+    href: JOBBER.ev,
     Icon: Car,
   },
   {
     title: "Electrical Services",
     description:
       "Lighting, receptacles, troubleshooting, renovations, aluminum wiring pigtails, and general residential electrical work.",
-    href: "https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207525/new",
+    learnHref: "/services",
+    href: JOBBER.general,
     Icon: Lightbulb,
   },
   {
     title: "Panel & Service Upgrades",
     description:
       "100A–200A upgrades, meter base repairs, grounding, bonding, and full electrical service upgrades.",
-    href: "https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207551/new",
+    learnHref: "/panel-service-upgrades",
+    href: JOBBER.panel,
     Icon: Zap,
   },
 ];

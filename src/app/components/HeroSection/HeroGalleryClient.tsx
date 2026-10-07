@@ -87,13 +87,13 @@ export default function HeroGalleryClient({ heroImages }: Props) {
           >
             <Image
               src={src}
-              alt={`Homepage photo ${i + 1}`}
+              alt={`Levere Electric project photo ${i + 1}: residential electrical work in London, Ontario`}
               fill
               quality={75}
               priority={i === 0}
               fetchPriority={i === 0 ? "high" : "low"}
               loading={i === 0 ? "eager" : "lazy"}
-              sizes="(min-width: 1280px) 50vw, (min-width: 768px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 592px, calc(100vw - 48px)"
               className={`object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.8,.2,1)]
                 ${i === index ? "scale-[1.02]" : "scale-100"}`}
             />

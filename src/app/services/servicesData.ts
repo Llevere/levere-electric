@@ -6,20 +6,20 @@ export const SERVICES: ServiceItem[] = [
     title: "Lighting\nInstallation",
     duration: "1 hr",
     estimate: "Call for estimate",
-    href: "/contact",
+    href: "/book",
   },
   {
     key: "panel.jpg",
     title: "Panel Upgrade",
     duration: "8 hr",
     estimate: "Call for estimate",
-    href: "/contact",
+    href: "/panel-service-upgrades",
   },
   {
     key: "residential-repair.jpg",
     title: "Home Electrical\nRepair",
     duration: "1 hr",
     estimate: "Call for estimate",
-    href: "/contact",
+    href: "/book",
   },
 ];

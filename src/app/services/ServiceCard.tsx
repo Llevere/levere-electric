@@ -2,6 +2,7 @@ import BookNowButton from "@/components/BookNowButton";
 import type { ServiceItem } from "@/types/services";
 import Image from "next/image";
 import Link from "next/link";
+import { JOBBER } from "@/lib/site";
 
 export default function ServiceCard({
   item,
@@ -10,6 +11,7 @@ export default function ServiceCard({
   item: ServiceItem;
   src: string;
 }) {
+  const title = item.title.replace("\n", " ");
   return (
     <article
       className="
@@ -21,10 +23,10 @@ export default function ServiceCard({
       <div className="relative h-44 w-full overflow-hidden">
         <Image
           src={src}
-          alt={item.title.replace("\n", " ")}
+          alt={`${title} by Levere Electric, London, Ontario`}
           fill
           quality={75}
-          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 368px, (min-width: 768px) 50vw, calc(100vw - 48px)"
           className="object-cover object-center "
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.25))]" />
@@ -32,7 +34,13 @@ export default function ServiceCard({
 
       <div className="flex flex-1 flex-col p-6">
         <h3 className="min-h-[3.6rem] text-[1.55rem] font-semibold leading-tight tracking-tight text-white">
-          {item.title.replace("\n", " ")}
+          {item.href !== "/book" ? (
+            <Link href={item.href} className="hover:text-brand-gold transition">
+              {title}
+            </Link>
+          ) : (
+            title
+          )}
         </h3>
 
         <div className="my-4 h-px w-full bg-white/10" />
@@ -40,7 +48,7 @@ export default function ServiceCard({
         <div className="space-y-2 text-sm text-white/75">
           <div className="flex items-center gap-2">
             <span className="inline-block h-2 w-2 rounded-full bg-brand-gold/80" />
-            <span className="text-white/70">{item.duration}</span>
+            <span className="text-white/70">Typical time on site: {item.duration}</span>
           </div>
 
           <div className="flex items-center gap-2 mb-5">
@@ -48,7 +56,17 @@ export default function ServiceCard({
             <span>{item.estimate}</span>
           </div>
         </div>
-        <BookNowButton href="https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207525/new" />
+        <div className="mt-auto flex flex-wrap gap-3">
+          {item.href !== "/book" && (
+            <Link
+              href={item.href}
+              className="inline-flex items-center justify-center rounded-md border border-brand-gold/50 px-5 py-3 text-sm text-brand-cream hover:bg-brand-gold/10 transition"
+            >
+              Learn more
+            </Link>
+          )}
+          <BookNowButton href={JOBBER.general} label="Request a quote" />
+        </div>
       </div>
     </article>
   );

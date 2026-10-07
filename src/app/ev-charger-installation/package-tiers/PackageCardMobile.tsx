@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { JOBBER } from "@/lib/site";
 import { useMemo } from "react";
 import { PACKAGES, PackageKey } from "../data";
 
@@ -64,8 +65,9 @@ export default function PackageCardMobile({
 
         <div className="mt-auto pt-3">
           <Link
-            target="_"
-            href="https://clienthub.getjobber.com/hubs/44f2974d-a806-4304-a72e-528f6432cdd0/public/requests/2207543/new"
+            target="_blank"
+                rel="noopener noreferrer"
+            href={JOBBER.ev}
             className="inline-flex w-full items-center justify-center rounded-xl bg-brand-gold px-4 py-2.5 text-sm font-semibold text-brand-navy transition hover:brightness-110"
           >
             {selected.cta}

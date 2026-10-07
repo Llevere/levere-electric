@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { syncPrefixToRedis } from "@/lib/blob";
+import { hasValidAdminSecret } from "@/lib/adminSecret";
 
 const KNOWN_PREFIXES = [
   "home/",
@@ -12,8 +13,7 @@ const KNOWN_PREFIXES = [
 ];
 
 export async function POST(req: NextRequest) {
-  const secret = req.headers.get("x-admin-secret");
-  if (!process.env.ADMIN_SECRET || secret !== process.env.ADMIN_SECRET) {
+  if (!hasValidAdminSecret(req.headers.get("x-admin-secret"))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
