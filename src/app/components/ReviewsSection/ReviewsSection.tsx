@@ -1,67 +1,34 @@
 import { REVIEWS } from "./reviews";
 import ReviewCard from "./ReviewCard";
 import { StarIcon, GoogleIcon } from "./icons";
+import { BUSINESS } from "@/lib/site";
 
-const REVIEWS_JSONLD = {
-  "@context": "https://schema.org",
-  "@type": "Electrician",
-  name: "Levere Electric",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: (
-      REVIEWS.reduce((sum, r) => sum + r.rating, 0) / REVIEWS.length
-    ).toFixed(1),
-    reviewCount: REVIEWS.length,
-    bestRating: 5,
-  },
-  review: REVIEWS.map((r) => ({
-    "@type": "Review",
-    author: { "@type": "Person", name: r.name },
-    datePublished: r.date,
-    reviewBody: r.text,
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: r.rating,
-      bestRating: 5,
-    },
-  })),
-};
+// Google ignores self-authored aggregateRating/review markup on LocalBusiness
+// pages, and a "3 reviews" count understated the real Google count, so the
+// review JSON-LD was removed. The reviews stay visible as plain text.
 
-function timeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-  const intervals = [
-    { label: "year", seconds: 31536000 },
-    { label: "month", seconds: 2592000 },
-    { label: "week", seconds: 604800 },
-    { label: "day", seconds: 86400 },
-  ];
-
-  for (const interval of intervals) {
-    const count = Math.floor(seconds / interval.seconds);
-    if (count >= 1) {
-      return `${count} ${interval.label}${count > 1 ? "s" : ""} ago`;
-    }
-  }
-
-  return "Just now";
+function formatMonth(dateString: string): string {
+  // Absolute dates: pages are prerendered, so "x months ago" went stale.
+  return new Date(`${dateString}T12:00:00Z`).toLocaleDateString("en-CA", {
+    year: "numeric",
+    month: "long",
+    timeZone: "UTC",
+  });
 }
 
 export default function ReviewsSection() {
   return (
     <section className="relative bg-brand-navy">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(REVIEWS_JSONLD) }}
-      />
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="text-center">
           <h2 className="text-4xl font-semibold text-brand-gold">
             What Our Customers Say
           </h2>
           <div className="mx-auto mt-3 h-0.5 w-14 rounded-full bg-brand-gold/70" />
+          <p className="mt-3 text-sm text-brand-cream/80">
+            A few of the reviews homeowners in London and area have left on
+            Google.
+          </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {REVIEWS.map((review) => (
@@ -75,11 +42,8 @@ export default function ReviewsSection() {
                     <div className="font-medium text-brand-cream">
                       {review.name}
                     </div>
-                    <div
-                      className="text-xs text-brand-cream/60"
-                      suppressHydrationWarning
-                    >
-                      {timeAgo(review.date)}
+                    <div className="text-xs text-brand-cream/60">
+                      {formatMonth(review.date)}
                     </div>
                   </div>
                 </div>
@@ -92,6 +56,16 @@ export default function ReviewsSection() {
               </div>
             </ReviewCard>
           ))}
+        </div>
+        <div className="mt-8 text-center">
+          <a
+            href={BUSINESS.googleUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-brand-gold hover:text-brand-gold-3 underline underline-offset-4"
+          >
+            Read all of our reviews on Google
+          </a>
         </div>
       </div>
     </section>

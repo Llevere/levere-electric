@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getImagesByFileName } from "@/lib/homeImages";
+import { SITE_URL } from "@/lib/site";
 import { SERVICES } from "./servicesData";
 import ServiceCard from "./ServiceCard";
 
 export const metadata: Metadata = {
-  title: "Electrical Services",
+  title: "Residential Electrical Services in London, Ontario",
   description:
-    "Residential electrical services in London, ON — lighting installation, panel upgrades, and home electrical repairs. Clean installs, clear pricing. ECRA/ESA #7017944.",
+    "Residential electrician in London, ON: lighting installation, panel upgrades, troubleshooting and home electrical repairs. ESA permits handled, clear pricing. ECRA/ESA #7017944.",
   alternates: { canonical: "/services" },
   openGraph: {
-    title: "Electrical Services | Levere Electric",
+    title: "Residential Electrical Services in London, Ontario | Levere Electric",
     description:
-      "Residential electrical services in London, ON — lighting installation, panel upgrades, and home electrical repairs.",
+      "Lighting installation, panel upgrades, troubleshooting and home electrical repairs across London, St. Thomas, Dorchester, Komoka & Delaware.",
     url: "/services",
   },
 };
@@ -25,14 +27,10 @@ const SERVICES_JSONLD = {
     item: {
       "@type": "Service",
       name: s.title.replace("\n", " "),
-      provider: {
-        "@type": "Electrician",
-        name: "Levere Electric",
-      },
+      provider: { "@id": `${SITE_URL}/#business` },
       areaServed: {
         "@type": "City",
-        name: "London",
-        addressRegion: "ON",
+        name: "London, Ontario",
       },
     },
   })),
@@ -49,13 +47,39 @@ export default async function Services() {
       />
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-14">
-          <h2 className="text-center text-3xl font-semibold tracking-tight text-white">
-            Our Services
-          </h2>
+          <h1 className="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Residential Electrical Services in London, Ontario
+          </h1>
 
-          <p className="mx-auto mt-3 max-w-3xl text-center text-sm text-white/70 font-medium">
-            Residential electrical work across London, St. Thomas, Dorchester &
-            Komoka — clean installs, clear pricing.
+          <p className="mx-auto mt-4 max-w-3xl text-center text-sm text-white/75 font-medium sm:text-base">
+            Levere Electric is an owner-operated, ESA-licensed electrical
+            contractor (ECRA/ESA #7017944) serving homeowners in London, St.
+            Thomas, Dorchester, Komoka and Delaware. Clean installs, proper
+            permits and clear pricing on every job.
+          </p>
+          <p className="mx-auto mt-3 max-w-3xl text-center text-sm text-white/70">
+            Looking for something specific? See{" "}
+            <Link
+              href="/ev-charger-installation"
+              className="text-brand-gold hover:text-brand-gold-3 underline underline-offset-4"
+            >
+              EV charger installation
+            </Link>{" "}
+            or{" "}
+            <Link
+              href="/panel-service-upgrades"
+              className="text-brand-gold hover:text-brand-gold-3 underline underline-offset-4"
+            >
+              panel and service upgrades
+            </Link>
+            , or browse the{" "}
+            <Link
+              href="/photo-gallery"
+              className="text-brand-gold hover:text-brand-gold-3 underline underline-offset-4"
+            >
+              project photo gallery
+            </Link>
+            .
           </p>
         </div>
 

@@ -6,14 +6,14 @@ import FAQSection from "./FAQ/FAQSection";
 import { FAQS } from "./data";
 
 export const metadata: Metadata = {
-  title: "EV Charger Installation",
+  title: "EV Charger Installation in London, Ontario",
   description:
-    "Professional Level 2 EV charger installation in London, ON. Starting at $899 + HST. ESA permits included. Tesla, Ford, Hyundai & all brands. ECRA/ESA #7017944.",
+    "Level 2 EV charger installation in London, ON from $899 + HST. Load calculation first, ESA permit and inspection included. Tesla, Ford, Hyundai & all brands. ECRA/ESA #7017944.",
   alternates: { canonical: "/ev-charger-installation" },
   openGraph: {
-    title: "EV Charger Installation | Levere Electric",
+    title: "EV Charger Installation in London, Ontario | Levere Electric",
     description:
-      "Professional Level 2 EV charger installation in London, ON. Starting at $899 + HST. ESA permits included.",
+      "Level 2 EV charger installation in London, ON from $899 + HST. Load calculation first, ESA permit and inspection included.",
     url: "/ev-charger-installation",
   },
 };

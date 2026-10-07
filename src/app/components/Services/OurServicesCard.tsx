@@ -4,6 +4,7 @@ import type { ServiceCardType } from "./types/ServiceCard";
 export default function OurServiceCard({
   title,
   description,
+  learnHref,
   href,
   Icon,
 }: ServiceCardType) {
@@ -29,20 +30,31 @@ export default function OurServiceCard({
       </div>
 
       <h3 className="relative text-2xl font-semibold text-brand-cream">
-        {title}
+        <Link href={learnHref} className="hover:text-brand-gold transition">
+          {title}
+        </Link>
       </h3>
 
       <p className="relative mt-5 text-sm leading-relaxed text-brand-cream/75">
         {description}
       </p>
 
-      <Link
-        target="_"
-        href={href}
-        className="cursor-pointer relative mt-10 inline-flex rounded-md bg-brand-gold px-6 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition"
-      >
-        Get A Quote
-      </Link>
+      <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
+        <Link
+          href={learnHref}
+          className="cursor-pointer inline-flex rounded-md border border-brand-gold/50 px-5 py-2 text-sm text-brand-cream hover:bg-brand-gold/10 transition"
+        >
+          Learn more
+        </Link>
+        <Link
+          target="_blank"
+          rel="noopener noreferrer"
+          href={href}
+          className="cursor-pointer inline-flex rounded-md bg-brand-gold px-6 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition"
+        >
+          Get A Quote
+        </Link>
+      </div>
     </div>
   );
 }

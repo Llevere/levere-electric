@@ -75,7 +75,7 @@ export default function MobileMenu({ open, onClose }: Props) {
                                 className="inline-flex w-full items-center justify-center rounded-lg bg-brand-gold px-5 py-3
                   text-sm font-semibold text-brand-navy hover:bg-brand-gold-3 active:bg-brand-gold-2 transition-colors"
                             >
-                                Book Now
+                                Request a Quote
                             </Link>
                         </div>
                     </nav>
