@@ -3,106 +3,110 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Nav/Navbar";
 import Footer from "./components/layout/Footer";
+import JsonLd from "./components/JsonLd";
 import { Analytics } from "@vercel/analytics/next";
-import { BUSINESS, SITE_URL } from "./lib/site";
+import {
+  AREAS_TEXT,
+  AREA_SERVED,
+  BUSINESS,
+  BUSINESS_ID,
+  LICENCE_LABEL,
+  OG_IMAGE,
+  SITE_URL,
+  pageMetadata,
+} from "./lib/site";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const DEFAULT_TITLE = "Licensed Electrician in London, Ontario | Levere Electric";
-const DEFAULT_DESCRIPTION =
-  "ESA-licensed, owner-operated residential electrician serving London, St. Thomas, Dorchester, Komoka & Delaware. EV charger installs, panel upgrades, lighting & repairs. ECRA/ESA #7017944.";
+const DEFAULT_TITLE = `Licensed Electrician in London, Ontario | ${BUSINESS.name}`;
+const DEFAULT_DESCRIPTION = `Licensed electrician serving ${AREAS_TEXT}. EV chargers, panel upgrades, smart lighting and repairs. ${LICENCE_LABEL}.`;
+
+// Site-wide defaults. The canonical is set per page (the home page sets "/"),
+// never here, or every page without one would point at the home page.
+const defaults = pageMetadata(DEFAULT_TITLE, DEFAULT_DESCRIPTION, "/", {
+  absoluteTitle: true,
+});
 
 export const metadata: Metadata = {
-  verification: {
-    google: "R1iKLziAYLQAvQLHLOYQj51E3QsIsuuKnVex6-BNjUc",
-  },
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: DEFAULT_TITLE,
-    template: "%s | Levere Electric",
-  },
+  verification: { google: "R1iKLziAYLQAvQLHLOYQj51E3QsIsuuKnVex6-BNjUc" },
+  title: { default: DEFAULT_TITLE, template: `%s | ${BUSINESS.name}` },
   description: DEFAULT_DESCRIPTION,
-  openGraph: {
-    type: "website",
-    locale: "en_CA",
-    url: SITE_URL,
-    siteName: "Levere Electric",
-    title: DEFAULT_TITLE,
-    description: DEFAULT_DESCRIPTION,
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Levere Electric, licensed electrician in London, Ontario",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: DEFAULT_TITLE,
-    description: DEFAULT_DESCRIPTION,
-    images: ["/og.png"],
-  },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  openGraph: defaults.openGraph,
+  twitter: defaults.twitter,
 };
 
-// One business entity for the whole site. Page-level blocks reference it via
-// { "@id": `${SITE_URL}/#business` } instead of declaring a second Electrician.
-export const BUSINESS_ID = `${SITE_URL}/#business`;
-
-const LOCAL_BUSINESS_JSONLD = {
+// The one business entity; page-level JSON-LD references it by @id.
+const SITE_JSONLD = {
   "@context": "https://schema.org",
-  "@type": ["Electrician", "LocalBusiness"],
-  "@id": BUSINESS_ID,
-  name: BUSINESS.name,
-  url: SITE_URL,
-  logo: `${SITE_URL}/FullLogo.png`,
-  image: `${SITE_URL}/og.png`,
-  telephone: BUSINESS.phoneE164,
-  email: BUSINESS.email,
-  foundingDate: BUSINESS.foundingDate,
-  founder: { "@type": "Person", name: BUSINESS.owner },
-  // Service-area business: no street address is published until Brandon
-  // confirms which address (if any) should be public.
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "London",
-    addressRegion: "ON",
-    addressCountry: "CA",
-  },
-  areaServed: BUSINESS.serviceAreas.map((name) => ({
-    "@type": "City",
-    name: `${name}, Ontario`,
-  })),
-  hasCredential: {
-    "@type": "EducationalOccupationalCredential",
-    credentialCategory: "ECRA/ESA Licensed Electrical Contractor",
-    recognizedBy: {
-      "@type": "Organization",
-      name: "Electrical Safety Authority",
+  "@graph": [
+    {
+      "@type": ["Electrician", "LocalBusiness"],
+      "@id": BUSINESS_ID,
+      name: BUSINESS.name,
+      url: SITE_URL,
+      logo: `${SITE_URL}/FullLogo.png`,
+      image: `${SITE_URL}${OG_IMAGE.url}`,
+      telephone: BUSINESS.phoneE164,
+      email: BUSINESS.email,
+      foundingDate: BUSINESS.foundingDate,
+      founder: { "@type": "Person", name: BUSINESS.owner },
+      // Service-area business: no public street address yet.
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "London",
+        addressRegion: "ON",
+        addressCountry: "CA",
+      },
+      areaServed: AREA_SERVED,
+      hasCredential: [
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "ECRA/ESA Licensed Electrical Contractor",
+          recognizedBy: {
+            "@type": "Organization",
+            name: "Electrical Safety Authority",
+          },
+          identifier: BUSINESS.licence,
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "Lutron RadioRA 3 Certification",
+          recognizedBy: { "@type": "Organization", name: "Lutron Electronics" },
+        },
+      ],
+      knowsAbout: [
+        "EV charger installation",
+        "Tesla Wall Connector installation",
+        "EV energy management systems and load calculations",
+        "Electrical panel and service upgrades",
+        "Lutron RadioRA 3 smart lighting",
+        "Home networking and UniFi installation",
+        "Residential electrical troubleshooting and repairs",
+        "Lighting installation",
+        "Pool and hot tub electrical",
+      ],
+      openingHours: BUSINESS.openingHours,
+      sameAs: [
+        BUSINESS.googleUrl,
+        BUSINESS.facebookUrl,
+        BUSINESS.instagramUrl,
+        BUSINESS.bbbUrl,
+      ],
+      priceRange: "$$",
     },
-    identifier: BUSINESS.licence,
-  },
-  knowsAbout: [
-    "EV charger installation",
-    "Tesla Wall Connector installation",
-    "Electrical panel and service upgrades",
-    "Residential electrical troubleshooting and repairs",
-    "Lighting installation",
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: BUSINESS.name,
+      inLanguage: "en-CA",
+      publisher: { "@id": BUSINESS_ID },
+    },
   ],
-  openingHours: BUSINESS.openingHours,
-  sameAs: [
-    BUSINESS.googleUrl,
-    BUSINESS.facebookUrl,
-    BUSINESS.instagramUrl,
-    BUSINESS.bbbUrl,
-  ],
-  priceRange: "$$",
 };
 
 export default function RootLayout({
@@ -115,15 +119,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} antialiased min-h-dvh bg-brand-navy text-brand-cream`}
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(LOCAL_BUSINESS_JSONLD),
-          }}
-        />
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <JsonLd data={SITE_JSONLD} />
         <div className="min-h-dvh flex flex-col">
           <Navbar />
-          <main className="flex flex-1 flex-col">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
+            {children}
+          </main>
           <Footer />
         </div>
         <Analytics />

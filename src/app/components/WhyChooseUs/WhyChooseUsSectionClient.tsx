@@ -1,8 +1,9 @@
 import SkeletonImage from "@/components/SkeletonImage";
+import { LICENCE_LABEL } from "@/lib/site";
 
 const FEATURES = [
   {
-    title: "ESA Licensed (ECRA/ESA #7017944)",
+    title: `ESA Licensed (${LICENCE_LABEL})`,
     desc: "Fully certified to perform residential electrical work in Ontario.",
   },
   {

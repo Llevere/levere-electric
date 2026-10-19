@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { syncPrefixToRedis } from "@/lib/blob";
 import { hasValidAdminSecret } from "@/lib/adminSecret";
+import { GalleryFolders } from "@/photo-gallery/galleryData";
 
 const KNOWN_PREFIXES = [
   "home/",
   "services/",
   "gallery/",
-  "gallery/electrical-upgrade/",
-  "gallery/lighting/",
-  "gallery/panel/",
-  "gallery/pool/",
+  ...Object.values(GalleryFolders).map((folder) => `gallery/${folder}/`),
 ];
 
 export async function POST(req: NextRequest) {

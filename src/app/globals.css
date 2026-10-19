@@ -35,9 +35,82 @@ html, body {
     color-scheme: dark;
 }
 
+html {
+    /* Keep #anchors clear of the fixed 5rem navbar. */
+    scroll-padding-top: 6rem;
+}
+
+/* Shared text styles, used as plain class names. */
+@utility link-gold {
+    color: var(--color-brand-gold);
+    text-decoration-line: underline;
+    text-underline-offset: 4px;
+    &:hover {
+        color: var(--color-brand-gold-3);
+    }
+}
+
+@utility eyebrow {
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-gold);
+}
+
+/* FAQ accordion: native <details>, animated where the browser supports it. */
+.faq-item {
+    interpolate-size: allow-keywords;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+        block-size 300ms ease-out,
+        content-visibility 300ms allow-discrete;
+}
+
+.faq-item[open]::details-content {
+    block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .faq-item::details-content {
+        transition: none;
+    }
+}
+
 body {
     background: var(--color-brand-navy);
     color: var(--color-brand-cream);
+}
+
+/* Hidden until focused by keyboard. */
+.skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    background: var(--color-brand-gold);
+    color: var(--color-brand-navy);
+    font-weight: 600;
+    transform: translateY(-200%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+#main-content:focus {
+    outline: none;
 }
 
 .text-secondary {

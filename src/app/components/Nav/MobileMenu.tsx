@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS, isActive } from "./navItems";
+import { MOBILE_EXTRA_ITEMS, NAV_ITEMS, isActive } from "./navItems";
 
 type Props = {
     open: boolean;
@@ -45,7 +45,7 @@ export default function MobileMenu({ open, onClose }: Props) {
             >
                 <div className="mx-auto w-full max-w-screen-2xl px-6 py-5">
                     <nav className="flex flex-col gap-2">
-                        {NAV_ITEMS.map((item) => {
+                        {[...NAV_ITEMS, ...MOBILE_EXTRA_ITEMS].map((item) => {
                             const active = isActive(pathname, item);
 
                             return (
