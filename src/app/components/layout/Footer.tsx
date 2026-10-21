@@ -1,17 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import BookNowButton from "../BookNowButton";
-import { BUSINESS } from "@/lib/site";
+import { ALL_AREAS_TEXT, BUSINESS, PHONE_HREF } from "@/lib/site";
 
 const SERVICE_LINKS = [
   { label: "EV Charger Installation", href: "/ev-charger-installation" },
   { label: "Panel & Service Upgrades", href: "/panel-service-upgrades" },
-  { label: "Electrical Services", href: "/services" },
+  { label: "Smart Homes & Lutron Lighting", href: "/smart-home-lighting" },
+  { label: "Home Networking & UniFi", href: "/home-networking" },
+  { label: "All Electrical Services", href: "/services" },
+] as const;
+
+const SITE_LINKS = [
   { label: "Project Photos", href: "/photo-gallery" },
+  { label: "Homeowner Guides", href: "/blog" },
   { label: "Request a Quote", href: "/book" },
 ] as const;
 
-export default async function Footer() {
+export default function Footer() {
   return (
     <footer className="w-full bg-brand-dark-navy">
       <div className="mx-auto w-full max-w-screen-2xl px-6">
@@ -34,6 +40,7 @@ export default async function Footer() {
               </div>
               <div>Owner-operated by {BUSINESS.owner}</div>
               <div>ECRA/ESA License #{BUSINESS.licence}</div>
+              <div>Lutron RadioRA 3 certified</div>
               <div>London, Ontario</div>
             </div>
           </div>
@@ -49,12 +56,22 @@ export default async function Footer() {
                 </li>
               ))}
             </ul>
+            <div className="mt-3 text-brand-gold">Explore</div>
+            <ul className="mt-1 space-y-1">
+              {SITE_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link className="hover:text-brand-gold" href={l.href}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
 
           <div className="text-sm text-brand-cream/80">
             <div>
               <span className="text-brand-gold">Phone:</span>{" "}
-              <a className="hover:text-brand-gold" href="tel:2265597897">
+              <a className="hover:text-brand-gold" href={PHONE_HREF}>
                 {BUSINESS.phone}
               </a>
             </div>
@@ -70,7 +87,7 @@ export default async function Footer() {
             <div className="mt-2">
               <div className="text-brand-gold">Serving</div>
               <div className="max-w-xs">
-                {BUSINESS.serviceAreas.join(", ")} &amp; surrounding area
+                {ALL_AREAS_TEXT} &amp; surrounding area
               </div>
             </div>
             <div className="mt-2">
@@ -110,7 +127,8 @@ export default async function Footer() {
                 </a>
               </div>
               <div className="mt-2">
-                <span className="text-brand-gold">Hours:</span> 8:00 AM to 8:00 PM, every day
+                <span className="text-brand-gold">Hours:</span>{" "}
+                {BUSINESS.openingHoursLabel}
               </div>
             </div>
           </div>

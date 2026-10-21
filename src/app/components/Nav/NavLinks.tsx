@@ -111,21 +111,14 @@ export default function NavLinks() {
               onMouseEnter={() => scheduleHoverIn(index)}
               onMouseLeave={clearHoverIn}
               className={`pb-3 text-[13px] lg:text-sm font-medium transition-colors ${
+                item.desktopFromLg ? "hidden lg:inline-block" : ""
+              } ${
                 active
                   ? "text-brand-gold"
                   : "text-brand-cream hover:text-brand-gold"
               }`}
             >
-              {item.label === "EV Charger Installation" ? (
-                <>
-                  <span className="hidden lg:inline">
-                    EV Charger Installation
-                  </span>
-                  <span className="lg:hidden">EV Charger</span>
-                </>
-              ) : (
-                item.label
-              )}
+              {item.label}
             </Link>
           );
         })}

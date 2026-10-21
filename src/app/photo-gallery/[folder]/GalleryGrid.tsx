@@ -4,7 +4,7 @@ import SkeletonImage from "@/components/SkeletonImage";
 import { useCallback, useEffect, useState } from "react";
 
 type Props = {
-  images: { url: string; fileName: string }[];
+  images: { url: string; fileName: string; alt?: string }[];
   /** Descriptive alt prefix for the folder, e.g. "Electrical panel upgrade by Levere Electric, London, Ontario". */
   altBase: string;
 };
@@ -42,7 +42,8 @@ export default function GalleryGrid({ images, altBase }: Props) {
     };
   }, [openIndex, prev, next]);
 
-  const altFor = (i: number) => `${altBase} (photo ${i + 1} of ${images.length})`;
+  const altFor = (i: number) =>
+    images[i].alt ?? `${altBase} (photo ${i + 1} of ${images.length})`;
 
   return (
     <>

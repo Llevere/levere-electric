@@ -4,6 +4,8 @@ export type BlobImage = {
   fileName: string;
   size: number;
   uploadedAt?: string;
+  /** Descriptive alt text; falls back to the folder description when absent. */
+  alt?: string;
 };
 
 export type BlobImageProps = {
